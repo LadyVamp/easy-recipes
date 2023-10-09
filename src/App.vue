@@ -1,19 +1,24 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white" height-hint="98">
+    <q-header
+      align="left"
+      elevated
+      class="bg-primary text-white"
+      height-hint="98"
+    >
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          Title
+          Easy Recipes
         </q-toolbar-title>
       </q-toolbar>
 
-      <q-tabs align="center">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
+      <q-tabs align="left" class="bg-white text-blue-6">
+        <q-route-tab to="/" label="Home" />
+        <q-route-tab to="/about" label="About" />
+        <q-route-tab to="/dev" label="Dev" />
       </q-tabs>
     </q-header>
 
