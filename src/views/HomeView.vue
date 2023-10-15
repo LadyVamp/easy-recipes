@@ -1,7 +1,9 @@
 <template>
-  <h3>HomeView</h3>
+  <RecipesList />
 </template>
 
-<script setup></script>
+<script setup>
+import RecipesList from "../components/Recipes/RecipesList.vue";
+</script>
 
 <style scoped></style>
