@@ -20,10 +20,12 @@
   </div>
 </template>
 
-<script>
-import { getAllRecipes } from "/src/api/api";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { getAllRecipes } from "../../api/recipes";
+import { RecipesResponse } from "../../api/types";
 
-export default {
+export default defineComponent({
   name: "RecipesList",
   data() {
     return {
@@ -35,7 +37,7 @@ export default {
   },
   methods: {
     loadRecipes() {
-      getAllRecipes().then((res) => {
+      getAllRecipes().then((res: RecipesResponse) => {
         this.recipes = res.recipes
           .reverse()
           .filter((item) => item.title !== "template_title");
@@ -43,7 +45,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style scoped>
