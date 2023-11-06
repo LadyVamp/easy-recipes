@@ -1,7 +1,16 @@
 <template>
-  <div class="q-pa-md q-gutter-md">
+  <div>
     <div class="row">
-      <div class="col-md-4 col-xl-3" v-for="item in recipes">
+      <div class="col-md-4 col-xl-3 col-xs-12">
+        <q-input
+          v-model="searchValue"
+          label="Поиск по названию"
+          @update:model-value="onSearchInput"
+        />
+      </div>
+    </div>
+    <div class="row q-mt-md q-mr-sm">
+      <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList">
         <q-card class="my-card">
           <q-img
             :src="
@@ -23,26 +32,38 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getAllRecipes } from "../../api/recipes";
-import { RecipesResponse } from "../../api/types";
+import { RecipesResponse, Recipe } from "../../api/interfaces";
 
 export default defineComponent({
   name: "RecipesList",
   data() {
     return {
-      recipes: [],
+      recipes: [] as Recipe[],
+      filteredList: [] as Recipe[],
+      searchValue: "",
     };
   },
   created() {
     this.loadRecipes();
   },
+  updated() {
+    if (this.recipes.length === 0 && this.searchValue === "") {
+      this.loadRecipes();
+    }
+  },
   methods: {
     loadRecipes() {
       getAllRecipes().then((res: RecipesResponse) => {
-        this.recipes = res.recipes
+        this.recipes = this.filteredList = res.recipes
           .reverse()
           .filter((item) => item.title !== "template_title");
-        console.log(this.recipes);
+        console.log("recipes", this.recipes);
       });
+    },
+    onSearchInput() {
+      this.filteredList = this.recipes.filter((item) =>
+        item.title.toLowerCase().includes(this.searchValue.toLowerCase())
+      );
     },
   },
 });
@@ -51,5 +72,10 @@ export default defineComponent({
 <style scoped>
 .my-card {
   margin: 5px;
+  min-width: 300px;
+}
+.text-h6 {
+  line-height: 1.1rem;
+  word-break: normal;
 }
 </style>

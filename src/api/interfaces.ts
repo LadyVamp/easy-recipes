@@ -10,19 +10,42 @@ export interface RecipesResponse {
 export interface Recipe {
   id: string;
   title: string;
-  servings: number;
+  servings: 2 | 4 | 6;
   ingredients: Ingredients;
   steps: Steps;
-  imageLink?: string;
+  imageLink: string;
   originalLink?: string;
-  staple: string;
-  feature: string;
-  season: string;
+  staple: Staple;
+  feature: Feature;
+  season: Season;
   isDiet: boolean;
   note?: string;
-  comboId?: string;
-  imageLink2?: string;
   extra?: Extra;
+}
+
+enum Staple {
+  meat = "Мясо",
+  bird = "Птица",
+  vegetable = "Овощи и фрукты",
+  dairy = "Молочные продукты",
+  dessert = "Десерт",
+}
+
+enum Season {
+  winter = "Зима",
+  spring = "Весна",
+  summer = "Лето",
+  autumn = "Осень",
+  all = "Все сезоны",
+}
+
+enum Feature {
+  fast = "Быстрый",
+  oven = "Духовка",
+  pot = "Кастрюля",
+  stewingdish = "Утятница",
+  grill = "Гриль",
+  toaster = "Мультипекарь",
 }
 
 export interface Ingredients {
