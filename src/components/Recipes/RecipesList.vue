@@ -2,15 +2,11 @@
   <div>
     <div class="row">
       <div class="col-md-4 col-xl-3 col-xs-12">
-        <q-input
-          v-model="searchValue"
-          label="Поиск по названию"
-          @update:model-value="onSearchInput"
-        />
+        <q-input v-model="searchValue" label="Поиск по названию" @update:model-value="onSearchInput" />
       </div>
     </div>
     <div class="row q-mt-md q-mr-sm">
-      <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList">
+      <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList" :key="item.id">
         <q-card class="my-card">
           <q-img
             :src="
@@ -30,39 +26,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { getAllRecipes } from "../../api/recipes";
-import { RecipesResponse, Recipe } from "../../api/interfaces";
+import { defineComponent } from 'vue';
+import { getAllRecipes } from '../../api/recipes';
+import { RecipesResponse, Recipe } from '../../api/interfaces';
 
 export default defineComponent({
-  name: "RecipesList",
+  name: 'RecipesList',
   data() {
     return {
       recipes: [] as Recipe[],
       filteredList: [] as Recipe[],
-      searchValue: "",
+      searchValue: '',
     };
   },
   created() {
     this.loadRecipes();
   },
   updated() {
-    if (this.recipes.length === 0 && this.searchValue === "") {
+    if (this.recipes.length === 0 && this.searchValue === '') {
       this.loadRecipes();
     }
   },
   methods: {
     loadRecipes() {
       getAllRecipes().then((res: RecipesResponse) => {
-        this.recipes = this.filteredList = res.recipes
-          .reverse()
-          .filter((item) => item.title !== "template_title");
-        console.log("recipes", this.recipes);
+        this.recipes = this.filteredList = res.recipes.reverse().filter((item) => item.title !== 'template_title');
+        console.log('recipes', this.recipes);
       });
     },
     onSearchInput() {
       this.filteredList = this.recipes.filter((item) =>
-        item.title.toLowerCase().includes(this.searchValue.toLowerCase())
+        item.title.toLowerCase().includes(this.searchValue.toLowerCase()),
       );
     },
   },
