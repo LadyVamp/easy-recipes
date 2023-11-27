@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getAllRecipes } from '../../api/recipes';
-import { RecipesResponse, Recipe } from '../../api/interfaces';
+import { getAllRecipes } from '@/api/recipes';
+import { RecipesResponse, Recipe } from '@/api/interfaces';
 
 export default defineComponent({
   name: 'RecipesList',

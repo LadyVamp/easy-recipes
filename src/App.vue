@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import TheFooter from './components/Layout/TheFooter.vue';
+import TheFooter from '@/components/Layout/TheFooter.vue';
 </script>
 
 <style lang="scss">
