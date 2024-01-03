@@ -15,7 +15,7 @@ export interface Recipe {
   steps: Steps;
   imageLink: string;
   originalLink?: string;
-  staple: Staple;
+  staple: Nature;
   feature: Feature;
   season: Season;
   isDiet: boolean;
@@ -23,12 +23,12 @@ export interface Recipe {
   extra?: Extra;
 }
 
-enum Staple {
-  meat = 'Мясо',
-  bird = 'Птица',
-  vegetable = 'Овощи и фрукты',
-  dairy = 'Молочные продукты',
-  dessert = 'Десерт',
+export type Nature = 'meat' | 'bird' | 'vegetable' | 'fish' | 'dairy' | 'dessert';
+
+export interface NatureObj {
+  name: Nature;
+  title: string;
+  icon: string;
 }
 
 enum Season {
