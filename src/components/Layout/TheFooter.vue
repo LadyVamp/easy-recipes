@@ -11,4 +11,7 @@
 a {
   color: #1976d2;
 }
+footer {
+  text-align: center;
+}
 </style>
