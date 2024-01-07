@@ -52,15 +52,14 @@ export default defineComponent({
       recipes: [] as Recipe[],
       filteredList: [] as Recipe[],
       searchValue: '',
-      // https://fonts.google.com/icons?icon.set=Material+Icons&icon.query=food
-      // TODO: найти нормальный набор иконок
+      // https://pictogrammers.com/library/mdi/
       natureButtons: [
-        { name: 'vegetable', title: 'Овощи и фрукты', icon: 'apple' },
-        { name: 'bird', title: 'Птица', icon: 'rocket' },
-        { name: 'meat', title: 'Мясо', icon: 'kebab_dining' },
-        { name: 'fish', title: 'Рыба и морепродукты', icon: 'set_meal' },
-        { name: 'dairy', title: 'Молочные продукты', icon: 'egg' },
-        { name: 'dessert', title: 'Десерт', icon: 'icecream' },
+        { name: 'vegetable', title: 'Овощи и фрукты', icon: 'mdi-food-apple' },
+        { name: 'bird', title: 'Птица', icon: 'mdi-food-drumstick' },
+        { name: 'meat', title: 'Мясо', icon: 'mdi-food-steak' },
+        { name: 'fish', title: 'Рыба и морепродукты', icon: 'mdi-fish' },
+        { name: 'dairy', title: 'Молочные продукты', icon: 'mdi-cheese' },
+        { name: 'dessert', title: 'Десерт', icon: 'mdi-candy' },
       ] as NatureObj[],
     };
   },
