@@ -23,29 +23,27 @@ export interface Recipe {
   extra?: Extra;
 }
 
-export type Nature = 'meat' | 'bird' | 'vegetable' | 'fish' | 'dairy' | 'dessert';
-
+export type Nature = 'meat' | 'bird' | 'vegetable' | 'fish' | 'dairy' | 'dessert' | 'all';
 export interface NatureObj {
   name: Nature;
   title: string;
   icon: string;
+  color: string;
 }
 
-enum Season {
-  winter = 'Зима',
-  spring = 'Весна',
-  summer = 'Лето',
-  autumn = 'Осень',
-  all = 'Все сезоны',
+export type Feature = 'fast' | 'oven' | 'pot' | 'stewingdish' | 'grill' | 'toaster' | 'all';
+export interface FeatureObj {
+  name: Feature;
+  title: string;
+  icon: string;
 }
 
-enum Feature {
-  fast = 'Быстрый',
-  oven = 'Духовка',
-  pot = 'Кастрюля',
-  stewingdish = 'Утятница',
-  grill = 'Гриль',
-  toaster = 'Мультипекарь',
+export type Season = 'winter' | 'spring' | 'summer' | 'autumn' | 'all';
+export interface SeasonObj {
+  name: Season;
+  title: string;
+  icon: string;
+  color: string;
 }
 
 export interface Ingredients {
