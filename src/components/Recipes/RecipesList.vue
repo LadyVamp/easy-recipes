@@ -61,14 +61,7 @@
   <div v-if="filteredList.length > 0" class="row q-mt-md q-mr-sm">
     <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList" :key="item.id">
       <q-card class="my-card">
-        <q-img
-          :src="
-            item.imageLink
-              ? item.imageLink
-              : 'https://sun9-30.userapi.com/impg/Z6fkeDwvqVVJMW8lviOyW1XyryvE90wVDnSDqw/XJRUwyS8L2s.jpg?size=380x300&quality=96&sign=93e6cf0b8c57ca7ad2c2608c01b4377a'
-          "
-          height="200px"
-        />
+        <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
         <q-card-section>
           <div class="text-h6">{{ item.title }}</div>
         </q-card-section>

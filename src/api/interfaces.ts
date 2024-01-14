@@ -13,12 +13,9 @@ export interface Recipe {
   servings: 2 | 4 | 6;
   ingredients: Ingredients;
   steps: Steps;
-  imageLink: string;
-  originalLink?: string;
   staple: Nature;
   feature: Feature;
   season: Season;
-  isDiet: boolean;
   note?: string;
   extra?: Extra;
 }
