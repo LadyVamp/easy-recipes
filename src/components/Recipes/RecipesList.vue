@@ -61,9 +61,16 @@
   <div v-if="filteredList.length > 0" class="row q-mt-md q-mr-sm">
     <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList" :key="item.id">
       <q-card class="my-card">
-        <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
         <q-card-section>
-          <div class="text-h6">{{ item.title }}</div>
+          <router-link
+            :to="{
+              name: 'RecipeDetails',
+              params: { id: item.id },
+            }"
+          >
+            <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
+            <div class="text-h6">{{ item.title }}</div>
+          </router-link>
         </q-card-section>
       </q-card>
     </div>

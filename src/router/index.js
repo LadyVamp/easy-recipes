@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import RecipeDetails from '@/components/Recipes/RecipeDetails.vue';
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/dev',
     name: 'Dev',
     component: () => import('@/views/DevView.vue'),
+  },
+  {
+    path: '/recipe/:id',
+    name: 'RecipeDetails',
+    component: RecipeDetails,
   },
 ];
 
