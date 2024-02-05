@@ -15,7 +15,9 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-12 col-xs-12 justify-start">
-      <div>TODO: иконки staple, feature, season</div>
+      <IconNature :nature="currentRecipe.nature" />
+      <IconFeature :feature="currentRecipe.feature" />
+      <IconSeason :season="currentRecipe.season" />
       <div v-if="currentRecipe.time">
         <q-icon name="mdi-timer-outline" color="primary" size="32px" title="Время приготовления" />
         {{ currentRecipe.time }} минут
@@ -41,9 +43,17 @@
 import { defineComponent } from 'vue';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe } from '@/api/interfaces';
+import IconNature from '@/components/Icons/IconNature.vue';
+import IconFeature from '@/components/Icons/IconFeature.vue';
+import IconSeason from '@/components/Icons/IconSeason.vue';
 
 export default defineComponent({
   name: 'RecipeDetails',
+  components: {
+    IconNature,
+    IconFeature,
+    IconSeason,
+  },
   data() {
     return {
       currentRecipe: {} as Recipe,

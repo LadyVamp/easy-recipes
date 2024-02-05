@@ -13,9 +13,9 @@ export interface Recipe {
   servings: number;
   ingredients: Ingredients;
   steps: Steps;
-  staple: string;
-  feature: string;
-  season: string;
+  nature: Nature;
+  feature: Feature;
+  season: Season;
   note?: string;
   time?: number;
   extra?: Extra;

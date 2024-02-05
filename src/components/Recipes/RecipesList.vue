@@ -142,7 +142,7 @@ export default defineComponent({
       if (obj.name === 'all') {
         this.filteredList = this.recipes;
       } else {
-        this.filteredList = this.recipes.filter((item) => obj.name === item.staple);
+        this.filteredList = this.recipes.filter((item) => obj.name === item.nature);
       }
     },
     filterByFeature(obj: FeatureObj) {
