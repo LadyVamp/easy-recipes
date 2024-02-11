@@ -8,10 +8,13 @@
         </div>
       </div>
       <div class="col-6 col-md-6 col-xs-12 justify-start">
-        TODO: ссылки<br />
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quod neque fuga nostrum, enim vero itaque
-        sed cupiditate necessitatibus et eius vitae accusamus tenetur, dolor ratione amet corporis? Distinctio,
-        voluptatum.
+        <div class="row">
+          <div class="col-6">
+            <q-toggle v-model="isShowLinksSber" label="Ссылки на Сбермаркет" />
+            <q-select v-model="selectedShop" :options="shops" label="Магазин" />
+            <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" />
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -29,9 +32,21 @@
         </p>
         <p class="text-green-10" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
         <h3>Ингредиенты</h3>
-        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
-          <li>{{ name }} – {{ value }}</li>
-        </ul>
+        <div v-if="!isShowLinksSber">
+          <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+            <li>{{ name }} – {{ value }}</li>
+          </ul>
+        </div>
+        <!-- TODO: ссылки для || -->
+        <div v-if="isShowLinksSber">
+          <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+            <a :href="linkToProductInSber(name)" target="_blank">{{ name }}</a>
+            –
+            {{
+              value
+            }}
+          </ul>
+        </div>
         <h3>Приготовление</h3>
         <ul v-for="(value, name, idx) in currentRecipe.steps" :key="idx">
           <li>{{ name }}. {{ value }}</li>
@@ -60,6 +75,21 @@ export default defineComponent({
     return {
       currentRecipe: {} as Recipe,
       isLoading: false,
+      isShowLinksSber: false,
+      shops: [
+        { value: 'auchan', label: 'Ашан' },
+        { value: 'lenta', label: 'Лента' },
+        { value: 'globus', label: 'Глобус' },
+        { value: 'okey', label: 'Окей' },
+      ],
+      selectedShop: { value: 'auchan', label: 'Ашан' },
+      sortOptions: [
+        { value: 'popularity', label: 'По популярности' },
+        { value: 'price_asc', label: 'Сначала дешевые' },
+        { value: 'price_desc', label: 'Сначала дорогие' },
+        { value: 'unit_price_asc', label: 'Выгоднее по весу' },
+      ],
+      selectedSort: { value: 'unit_price_asc', label: 'Выгоднее по весу' },
     };
   },
   created() {
@@ -74,6 +104,16 @@ export default defineComponent({
         })
         .catch((err) => console.error(err))
         .finally(() => (this.isLoading = false));
+    },
+    linkToProductInSber(ingredient: string) {
+      const url =
+        'https://sbermarket.ru/' +
+        `${this.selectedShop.value}` +
+        '/search?keywords=' +
+        `${ingredient.trim()}` +
+        `&sort=` +
+        `${this.selectedSort.value}`;
+      return url;
     },
   },
 });

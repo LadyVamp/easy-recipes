@@ -128,10 +128,11 @@ export default defineComponent({
   },
   methods: {
     loadRecipes() {
-      getAllRecipes().then((res: RecipesResponse) => {
-        this.recipes = this.filteredList = res.recipes.reverse().filter((item) => item.title !== 'template_title');
-        console.log('recipes', this.recipes);
-      });
+      getAllRecipes()
+        .then((res: RecipesResponse) => {
+          this.recipes = this.filteredList = res.recipes.reverse().filter((item) => item.title !== 'template_title');
+        })
+        .catch((err) => console.error(err));
     },
     onSearchInput() {
       this.filteredList = this.recipes.filter((item) =>
