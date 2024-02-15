@@ -92,7 +92,7 @@ export default defineComponent({
       shopsSM: [
         { value: 'auchan', label: 'Ашан' },
         { value: 'lenta', label: 'Лента' },
-        { value: 'globus', label: 'Глобус' },
+        { value: 'globusgiper', label: 'Глобус' },
         { value: 'okey', label: 'Окей' },
       ],
       selectedShopSM: { value: 'auchan', label: 'Ашан' },
