@@ -1,5 +1,5 @@
 <template>
-  <q-icon :name="getIcon(nature)" :color="getIconColor(nature)" :title="getIconLabel(nature)" size="32px"></q-icon>
+  <q-icon :name="getIcon(nature)" :color="getIconColor(nature)" :title="getIconLabel(nature)" size="24px"></q-icon>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +23,7 @@ const iconNatures = [
     key: 'bird',
     label: 'Птица',
     icon: 'mdi-food-drumstick',
-    color: 'red lighten-3',
+    color: 'pink-2',
   },
   {
     key: 'meat',

@@ -1,39 +1,11 @@
 <template>
   <div v-if="!isLoading">
+    <h2 class="q-my-xs">{{ currentRecipe.title }}</h2>
     <div class="row">
-      <div class="col-6 col-md-6 col-xs-12 justify-start">
-        <h2>{{ currentRecipe.title }}</h2>
-        <div>
-          <q-img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" width="400px" />
-        </div>
+      <div class="col col-md-3 col-xs-12">
+        <img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" />
       </div>
-      <div v-if="!$q.platform.is.mobile" class="col-6 col-md-6 col-xs-12 justify-start">
-        <div class="row">
-          <div class="col-6">
-            <q-toggle v-model="isShowLinksSM" label="Ссылки на Сбермаркет" :disable="isShowLinksAnotherShop" />
-            <q-select
-              v-model="selectedShopSM"
-              :options="shopsSM"
-              label="Магазин"
-              class="q-select"
-              :disable="isShowLinksAnotherShop"
-            />
-            <q-select
-              v-model="selectedSort"
-              :options="sortOptions"
-              label="Сортировка"
-              :disable="isShowLinksAnotherShop"
-            />
-          </div>
-          <div class="col-6">
-            <q-toggle v-model="isShowLinksAnotherShop" label="Ссылки на магазин" :disable="isShowLinksSM" />
-            <q-select v-model="selectedShop" :options="shops" label="Магазин" :disable="isShowLinksSM" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-12 col-xs-12 justify-start">
+      <div class="col col-md-3 col-xs-12">
         <IconNature :nature="currentRecipe.nature" />
         <IconFeature :feature="currentRecipe.feature" />
         <IconSeason :season="currentRecipe.season" />
@@ -45,14 +17,32 @@
           <q-icon name="mdi-account-multiple" color="primary" size="32px" title="Количество порций" />
           {{ currentRecipe.servings }}
         </p>
-        <p class="text-green-10" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
-        <h3>Ингредиенты</h3>
+        <p class="text-green-10 q-pl-xs" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
+      </div>
+      <div v-if="!$q.platform.is.mobile" class="col col-md-3">
+        <q-toggle v-model="isShowLinksSM" label="Ссылки на Сбермаркет" :disable="isShowLinksAnotherShop" />
+        <q-select
+          v-model="selectedShopSM"
+          :options="shopsSM"
+          label="Магазин"
+          class="q-select"
+          :disable="isShowLinksAnotherShop"
+        />
+        <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" :disable="isShowLinksAnotherShop" />
+      </div>
+      <div v-if="!$q.platform.is.mobile" class="col col col-md-3">
+        <q-toggle v-model="isShowLinksAnotherShop" label="Ссылки на магазин" :disable="isShowLinksSM" />
+        <q-select v-model="selectedShop" :options="shops" label="Магазин" :disable="isShowLinksSM" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3 class="q-my-xs">Ингредиенты</h3>
         <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
           <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
             <li>{{ name }} – {{ value }}</li>
           </ul>
         </div>
-        <!-- TODO: ссылки для || -->
         <div v-if="isShowLinksSM">
           <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
             <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
@@ -87,7 +77,7 @@ import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
-
+// TODO: ссылки для ||
 export default defineComponent({
   name: 'RecipeDetails',
   components: {
@@ -178,5 +168,8 @@ h3 {
 }
 .q-select {
   margin: 0 10px;
+}
+.image {
+  width: 400px;
 }
 </style>

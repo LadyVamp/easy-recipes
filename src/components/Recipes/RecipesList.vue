@@ -69,7 +69,10 @@
             }"
           >
             <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
-            <div class="text-h6">{{ item.title }}</div>
+            <div class="text-h6 q-pa-xs">{{ item.title }}</div>
+            <IconNature :nature="item.nature" />
+            <IconFeature :feature="item.feature" />
+            <IconSeason :season="item.season" />
           </router-link>
         </q-card-section>
       </q-card>
@@ -81,9 +84,17 @@
 import { defineComponent } from 'vue';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe, NatureObj, FeatureObj, SeasonObj } from '@/api/interfaces';
+import IconNature from '@/components/Icons/IconNature.vue';
+import IconFeature from '@/components/Icons/IconFeature.vue';
+import IconSeason from '@/components/Icons/IconSeason.vue';
 
 export default defineComponent({
   name: 'RecipesList',
+  components: {
+    IconNature,
+    IconFeature,
+    IconSeason,
+  },
   data() {
     return {
       recipes: [] as Recipe[],
@@ -167,13 +178,13 @@ export default defineComponent({
 <style scoped>
 .my-card {
   margin: 5px;
+  height: 300px;
   min-width: 300px;
 }
 .text-h6 {
   line-height: 1.1rem;
   word-break: normal;
 }
-
 .border-gray:before {
   border: 1px solid lightgray;
 }

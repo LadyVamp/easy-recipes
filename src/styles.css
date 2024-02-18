@@ -57,7 +57,7 @@ button:focus-visible {
 }
 
 a {
-  color: var(--q-secondary);
+  color: #038A5B;
 }
 
 @media (prefers-color-scheme: light) {

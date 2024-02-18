@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import './reset.css';
 import './styles.css';
 import { Quasar } from 'quasar';
 import quasarLang from 'quasar/lang/ru';
