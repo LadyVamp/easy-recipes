@@ -35,38 +35,92 @@
         <q-select v-model="selectedShop" :options="shops" label="Магазин" :disable="isShowLinksSM" />
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h3 class="q-my-xs">Ингредиенты</h3>
-        <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
-          <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
-            <li>{{ name }} – {{ value }}</li>
-          </ul>
-        </div>
-        <div v-if="isShowLinksSM">
-          <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
-            <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
-            –
-            {{
-              value
-            }}
-          </ul>
-        </div>
-        <div v-if="isShowLinksAnotherShop">
-          <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
-            <a :href="linkToProductAnotherShop(name)" target="_blank">{{ name }}</a>
-            –
-            {{
-              value
-            }}
-          </ul>
-        </div>
-        <h3>Приготовление</h3>
-        <ul v-for="(value, name, idx) in currentRecipe.steps" :key="idx">
-          <li>{{ name }}. {{ value }}</li>
+    <section>
+      <h3 class="q-my-xs">Ингредиенты</h3>
+      <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+          <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
-    </div>
+      <div v-if="isShowLinksSM">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+          <span v-if="name.includes('||')">
+            <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            ||
+            <a :href="linkToProductInSM(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            –
+            {{ value }}
+          </span>
+          <span v-if="!name.includes('||')">
+            <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
+            –
+            {{ value }}
+          </span>
+        </ul>
+      </div>
+      <div v-if="isShowLinksAnotherShop">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+          <span v-if="name.includes('||')">
+            <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            ||
+            <a :href="linkToProductAnotherShop(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            –
+            {{ value }}
+          </span>
+          <span v-if="!name.includes('||')">
+            <a :href="linkToProductAnotherShop(name)" target="_blank">{{ name }}</a>
+            –
+            {{ value }}
+          </span>
+        </ul>
+      </div>
+    </section>
+    <section v-if="currentRecipe.extra">
+      <h3 class="q-my-xs">Дополнительно</h3>
+      <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+          <li>{{ name }} – {{ value }}</li>
+        </ul>
+      </div>
+      <div v-if="isShowLinksSM">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+          <span v-if="name.includes('||')">
+            <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            ||
+            <a :href="linkToProductInSM(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            –
+            {{ value }}
+          </span>
+          <span v-if="!name.includes('||')">
+            <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
+            –
+            {{ value }}
+          </span>
+        </ul>
+      </div>
+      <div v-if="isShowLinksAnotherShop">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+          <span v-if="name.includes('||')">
+            <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            ||
+            <a :href="linkToProductAnotherShop(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            –
+            {{ value }}
+          </span>
+          <span v-if="!name.includes('||')">
+            <a :href="linkToProductAnotherShop(name)" target="_blank">{{ name }}</a>
+            –
+            {{ value }}
+          </span>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3>Приготовление</h3>
+      <ul v-for="(value, name, idx) in currentRecipe.steps" :key="idx">
+        <li>{{ name }}. {{ value }}</li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -77,7 +131,7 @@ import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
-// TODO: ссылки для ||
+
 export default defineComponent({
   name: 'RecipeDetails',
   components: {
@@ -147,9 +201,8 @@ export default defineComponent({
       return url;
     },
     linkToProductAnotherShop(ingredient: string) {
-      let url = this.shops.find((item) => item.value === this.selectedShop.value)!.link;
-      url = url.replace('{ingredient}', ingredient);
-      return url;
+      const url = this.shops.find((item) => item.value === this.selectedShop.value)!.link;
+      return url.replace('{ingredient}', ingredient);
     },
   },
 });
@@ -168,8 +221,5 @@ h3 {
 }
 .q-select {
   margin: 0 10px;
-}
-.image {
-  width: 400px;
 }
 </style>
