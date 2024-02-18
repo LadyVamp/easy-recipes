@@ -7,16 +7,27 @@
           <q-img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" width="400px" />
         </div>
       </div>
-      <div class="col-6 col-md-6 col-xs-12 justify-start">
+      <div v-if="!$q.platform.is.mobile" class="col-6 col-md-6 col-xs-12 justify-start">
         <div class="row">
           <div class="col-6">
             <q-toggle v-model="isShowLinksSM" label="Ссылки на Сбермаркет" :disable="isShowLinksAnotherShop" />
-            <q-select v-model="selectedShopSM" :options="shopsSM" label="Магазин" />
-            <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" />
+            <q-select
+              v-model="selectedShopSM"
+              :options="shopsSM"
+              label="Магазин"
+              class="q-select"
+              :disable="isShowLinksAnotherShop"
+            />
+            <q-select
+              v-model="selectedSort"
+              :options="sortOptions"
+              label="Сортировка"
+              :disable="isShowLinksAnotherShop"
+            />
           </div>
           <div class="col-6">
             <q-toggle v-model="isShowLinksAnotherShop" label="Ссылки на магазин" :disable="isShowLinksSM" />
-            <q-select v-model="selectedShop" :options="shops" label="Магазин" />
+            <q-select v-model="selectedShop" :options="shops" label="Магазин" :disable="isShowLinksSM" />
           </div>
         </div>
       </div>
@@ -164,5 +175,8 @@ h3 {
   font-size: 1.4em;
   font-weight: 500;
   line-height: 1rem;
+}
+.q-select {
+  margin: 0 10px;
 }
 </style>

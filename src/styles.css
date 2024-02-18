@@ -56,6 +56,10 @@ button:focus-visible {
   padding: 1rem 0.5rem;
 }
 
+a {
+  color: var(--q-secondary);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
