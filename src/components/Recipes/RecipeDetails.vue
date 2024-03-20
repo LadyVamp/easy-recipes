@@ -6,17 +6,24 @@
         <img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" />
       </div>
       <div class="col col-md-3 col-xs-12">
-        <IconNature :nature="currentRecipe.nature" />
-        <IconFeature :feature="currentRecipe.feature" />
-        <IconSeason :season="currentRecipe.season" />
-        <div v-if="currentRecipe.time">
-          <q-icon name="mdi-timer-outline" color="primary" size="32px" title="Время приготовления" />
-          {{ currentRecipe.time }} минут
+        <div class="row">
+          <div class="col col-xs-10">
+            <IconNature :nature="currentRecipe.nature" />
+            <IconFeature :feature="currentRecipe.feature" />
+            <IconSeason :season="currentRecipe.season" />
+            <div v-if="currentRecipe.time">
+              <q-icon name="mdi-timer-outline" color="primary" size="32px" title="Время приготовления" />
+              {{ currentRecipe.time }} минут
+            </div>
+            <p>
+              <q-icon name="mdi-account-multiple" color="primary" size="32px" title="Количество порций" />
+              {{ currentRecipe.servings }}
+            </p>
+          </div>
+          <div class="col col-xs-2 q-mt-xs" v-if="$q.platform.is.mobile">
+            <q-btn outline round color="warning" icon="mdi-sleep-off" @click="wakeLock" />
+          </div>
         </div>
-        <p>
-          <q-icon name="mdi-account-multiple" color="primary" size="32px" title="Количество порций" />
-          {{ currentRecipe.servings }}
-        </p>
         <p class="text-green-10 q-pl-xs" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
@@ -126,6 +133,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Notify } from 'quasar';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
@@ -203,6 +211,21 @@ export default defineComponent({
     linkToProductAnotherShop(ingredient: string) {
       const url = this.shops.find((item) => item.value === this.selectedShop.value)!.link;
       return url.replace('{ingredient}', ingredient);
+    },
+    wakeLock() {
+      const requestWakeLock = async () => {
+        try {
+          const wakeLock = await navigator.wakeLock.request('screen');
+          console.log(wakeLock);
+          Notify.create({
+            message: 'WakeLock активирован',
+            type: 'warning',
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      requestWakeLock();
     },
   },
 });
