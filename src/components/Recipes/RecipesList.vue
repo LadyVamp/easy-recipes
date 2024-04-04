@@ -39,21 +39,20 @@
       </div>
     </div>
     <div class="col-6 col-md-6 col-xs-12">
-      <q-input
-        class="min-w-405"
-        v-model="searchValue"
-        filled
-        type="search"
-        hint="Поиск по названию"
-        @update:model-value="onSearchInput"
-      >
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
+      <div class="row">
+        <div class="col-4 col-md-4 col-xs-4">
+          <q-select v-model="selectedSearchKey" :options="searchKeys" label="Поиск" />
+        </div>
+        <div class="col-8 col-md-8 col-xs-4">
+          <q-input v-model="searchValue" filled type="search" hint="Поиск" @update:model-value="onSearchInput">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </div>
+      </div>
     </div>
   </div>
-
   <div v-if="filteredList.length < 4" class="invisible">
     Текст, чтобы блоки не скукожились. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore quae molestias
     perspiciatis beatae? Culpa nisi dolorum sed id impedit illo enim fugit molestias obcaecati esse.
@@ -81,6 +80,7 @@
 </template>
 
 <script lang="ts">
+import uniq from 'lodash-es/uniq';
 import { defineComponent } from 'vue';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe, NatureObj, FeatureObj, SeasonObj } from '@/api/interfaces';
@@ -100,6 +100,11 @@ export default defineComponent({
       recipes: [] as Recipe[],
       filteredList: [] as Recipe[],
       searchValue: '',
+      searchKeys: [
+        { value: 'title', label: 'По названию' },
+        { value: 'ingredients', label: 'По ингредиентам' },
+      ],
+      selectedSearchKey: { value: 'title', label: 'По названию' },
       // https://pictogrammers.com/library/mdi/
       // https://quasar.dev/style/color-palette/
       natureButtons: [
@@ -146,30 +151,44 @@ export default defineComponent({
         .catch((err) => console.error(err));
     },
     onSearchInput() {
-      this.filteredList = this.recipes.filter((item) =>
-        item.title.toLowerCase().includes(this.searchValue.toLowerCase()),
-      );
+      const searchInput = this.searchValue.toLowerCase();
+      if (searchInput !== '' && this.selectedSearchKey.value === 'title') {
+        this.filteredList = this.searchByTitle(searchInput);
+      }
+      if (searchInput !== '' && this.selectedSearchKey.value === 'ingredients') {
+        this.filteredList = this.searchByIngredients(searchInput);
+      }
+    },
+    searchByTitle(searchInput: string) {
+      return this.recipes.filter((recipe) => recipe.title.toLowerCase().includes(searchInput));
+    },
+    searchByIngredients(searchInput: string) {
+      let recipes = [] as Recipe[];
+      this.recipes.forEach((recipe) => {
+        if (recipe.ingredients) {
+          Object.keys(recipe.ingredients).forEach((item) => {
+            if (item.toLowerCase().includes(searchInput)) {
+              recipes.push(recipe);
+            }
+          });
+        }
+      });
+      return uniq(recipes);
     },
     filterByNature(obj: NatureObj) {
-      if (obj.name === 'all') {
-        this.filteredList = this.recipes;
-      } else {
-        this.filteredList = this.recipes.filter((item) => obj.name === item.nature);
-      }
+      obj.name === 'all'
+        ? (this.filteredList = this.recipes)
+        : (this.filteredList = this.recipes.filter((item) => obj.name === item.nature));
     },
     filterByFeature(obj: FeatureObj) {
-      if (obj.name === 'all') {
-        this.filteredList = this.recipes;
-      } else {
-        this.filteredList = this.recipes.filter((item) => obj.name === item.feature);
-      }
+      obj.name === 'all'
+        ? (this.filteredList = this.recipes)
+        : (this.filteredList = this.recipes.filter((item) => obj.name === item.feature));
     },
     filterBySeason(obj: SeasonObj) {
-      if (obj.name === 'all') {
-        this.filteredList = this.recipes;
-      } else {
-        this.filteredList = this.recipes.filter((item) => obj.name === item.season);
-      }
+      obj.name === 'all'
+        ? (this.filteredList = this.recipes)
+        : (this.filteredList = this.recipes.filter((item) => obj.name === item.season));
     },
   },
 });
