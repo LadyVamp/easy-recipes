@@ -27,29 +27,29 @@
         <p class="text-green-10 q-pl-xs" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
-        <q-toggle v-model="isShowLinksSM" label="Ссылки на Сбермаркет" :disable="isShowLinksAnotherShop" />
+        <q-toggle v-model="state1.isShowLinksSM" label="Ссылки на Сбермаркет" :disable="state2.isShowLinksShop" />
         <q-select
-          v-model="selectedShopSM"
-          :options="shopsSM"
+          v-model="state1.selectedSM"
+          :options="shops1"
           label="Магазин"
           class="q-select"
-          :disable="isShowLinksAnotherShop"
+          :disable="state2.isShowLinksShop"
         />
-        <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" :disable="isShowLinksAnotherShop" />
+        <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" :disable="state2.isShowLinksShop" />
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col col-md-3">
-        <q-toggle v-model="isShowLinksAnotherShop" label="Ссылки на магазин" :disable="isShowLinksSM" />
-        <q-select v-model="selectedShop" :options="shops" label="Магазин" :disable="isShowLinksSM" />
+        <q-toggle v-model="state2.isShowLinksShop" label="Ссылки на магазин" :disable="state1.isShowLinksSM" />
+        <q-select v-model="state2.selectedShop" :options="shops2" label="Магазин" :disable="state1.isShowLinksSM" />
       </div>
     </div>
     <section>
       <h3 class="q-my-xs">Ингредиенты</h3>
-      <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
+      <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
-      <div v-if="isShowLinksSM">
+      <div v-if="state1.isShowLinksSM">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <span v-if="name.includes('||')">
             <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
@@ -65,7 +65,7 @@
           </span>
         </ul>
       </div>
-      <div v-if="isShowLinksAnotherShop">
+      <div v-if="state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <span v-if="name.includes('||')">
             <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
@@ -84,12 +84,12 @@
     </section>
     <section v-if="currentRecipe.extra">
       <h3 class="q-my-xs">Дополнительно</h3>
-      <div v-if="!isShowLinksSM && !isShowLinksAnotherShop">
+      <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
-      <div v-if="isShowLinksSM">
+      <div v-if="state1.isShowLinksSM">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <span v-if="name.includes('||')">
             <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
@@ -105,7 +105,7 @@
           </span>
         </ul>
       </div>
-      <div v-if="isShowLinksAnotherShop">
+      <div v-if="state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <span v-if="name.includes('||')">
             <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
@@ -134,6 +134,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Notify } from 'quasar';
+import { useStorage } from '@vueuse/core';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
@@ -151,14 +152,16 @@ export default defineComponent({
     return {
       currentRecipe: {} as Recipe,
       isLoading: false,
-      isShowLinksSM: false,
-      shopsSM: [
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      state1: {} as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      state2: {} as any,
+      shops1: [
         { value: 'auchan', label: 'Ашан' },
         { value: 'lenta', label: 'Лента' },
         { value: 'globusgiper', label: 'Глобус' },
         { value: 'okey', label: 'Окей' },
       ],
-      selectedShopSM: { value: 'auchan', label: 'Ашан' },
       sortOptions: [
         { value: 'popularity', label: 'По популярности' },
         { value: 'price_asc', label: 'Сначала дешевые' },
@@ -166,9 +169,7 @@ export default defineComponent({
         { value: 'unit_price_asc', label: 'Выгоднее по весу' },
       ],
       selectedSort: { value: 'unit_price_asc', label: 'Выгоднее по весу' },
-      isShowLinksAnotherShop: false,
-      selectedShop: { value: 'vprok', label: 'Впрок' },
-      shops: [
+      shops2: [
         { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
         { value: 'metro', label: 'Метро', link: 'https://online.metro-cc.ru/search?q={ingredient}' },
         { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/{ingredient}' },
@@ -188,6 +189,9 @@ export default defineComponent({
   created() {
     this.loadRecipes();
   },
+  mounted() {
+    this.loadShopsFromLocalStorage();
+  },
   methods: {
     loadRecipes() {
       this.isLoading = true;
@@ -198,10 +202,22 @@ export default defineComponent({
         .catch((err) => console.error(err))
         .finally(() => (this.isLoading = false));
     },
+    loadShopsFromLocalStorage() {
+      const theDefaultSM = {
+        isShowLinksSM: false,
+        selectedSM: { value: 'auchan', label: 'Ашан' },
+      };
+      this.state1 = useStorage('vue-use-local-storage-sm', theDefaultSM);
+      const theDefaultShop = {
+        isShowLinksShop: false,
+        selectedShop: { value: 'vprok', label: 'Впрок' },
+      };
+      this.state2 = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
+    },
     linkToProductInSM(ingredient: string) {
       const url =
         'https://sbermarket.ru/' +
-        `${this.selectedShopSM.value}` +
+        `${this.state1.selectedSM.value}` +
         '/search?keywords=' +
         `${ingredient.trim()}` +
         `&sort=` +
@@ -209,7 +225,7 @@ export default defineComponent({
       return url;
     },
     linkToProductAnotherShop(ingredient: string) {
-      const url = this.shops.find((item) => item.value === this.selectedShop.value)!.link;
+      const url = this.shops2.find((item) => item.value === this.state2.selectedShop.value)!.link;
       return url.replace('{ingredient}', ingredient);
     },
     wakeLock() {
