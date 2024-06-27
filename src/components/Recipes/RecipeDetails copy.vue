@@ -131,9 +131,8 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { Notify } from 'quasar';
 import { useStorage } from '@vueuse/core';
 import { getAllRecipes } from '@/api/recipes';
@@ -142,110 +141,110 @@ import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
 
-const route = useRoute();
-let currentRecipe: Recipe = {
-  id: '',
-  title: '',
-  servings: 2,
-  ingredients: {
-    Фета: '',
+export default defineComponent({
+  name: 'RecipeDetails',
+  components: {
+    IconNature,
+    IconFeature,
+    IconSeason,
   },
-  steps: {
-    '1': '',
+  data() {
+    return {
+      currentRecipe: {} as Recipe,
+      isLoading: false,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      state1: {} as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      state2: {} as any,
+      shops1: [
+        { value: 'auchan', label: 'Ашан' },
+        { value: 'lenta', label: 'Лента' },
+        { value: 'globusgiper', label: 'Глобус' },
+        { value: 'okey', label: 'Окей' },
+      ],
+      sortOptions: [
+        { value: 'popularity', label: 'По популярности' },
+        { value: 'price_asc', label: 'Сначала дешевые' },
+        { value: 'price_desc', label: 'Сначала дорогие' },
+        { value: 'unit_price_asc', label: 'Выгоднее по весу' },
+      ],
+      selectedSort: { value: 'unit_price_asc', label: 'Выгоднее по весу' },
+      shops2: [
+        { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
+        { value: 'metro', label: 'Метро', link: 'https://online.metro-cc.ru/search?q={ingredient}' },
+        { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/{ingredient}' },
+        {
+          value: 'perekrestok',
+          label: 'Перекресток',
+          link: 'https://www.perekrestok.ru/cat/search?search={ingredient}',
+        },
+        {
+          value: 'vprokMarket',
+          label: 'Впрок Я.Маркет',
+          link: 'https://shop.market.yandex.ru/retail/vprok_ru?placeSlug=vprokru_omknq&query={ingredient}&standaloneType=shop',
+        },
+      ],
+    };
   },
-  nature: 'vegetable',
-  feature: 'fast',
-  season: 'summer',
-};
-const isLoading = ref(false);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const state1 = ref({}) as any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const state2 = ref({}) as any;
-const shops1 = ref([
-  { value: 'auchan', label: 'Ашан' },
-  { value: 'lenta', label: 'Лента' },
-  { value: 'globusgiper', label: 'Глобус' },
-  { value: 'okey', label: 'Окей' },
-]);
-const sortOptions = ref([
-  { value: 'popularity', label: 'По популярности' },
-  { value: 'price_asc', label: 'Сначала дешевые' },
-  { value: 'price_desc', label: 'Сначала дорогие' },
-  { value: 'unit_price_asc', label: 'Выгоднее по весу' },
-]);
-const selectedSort = ref({ value: 'unit_price_asc', label: 'Выгоднее по весу' });
-const shops2 = ref([
-  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
-  { value: 'metro', label: 'Метро', link: 'https://online.metro-cc.ru/search?q={ingredient}' },
-  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/{ingredient}' },
-  {
-    value: 'perekrestok',
-    label: 'Перекресток',
-    link: 'https://www.perekrestok.ru/cat/search?search={ingredient}',
+  created() {
+    this.loadRecipes();
   },
-  {
-    value: 'vprokMarket',
-    label: 'Впрок Я.Маркет',
-    link: 'https://shop.market.yandex.ru/retail/vprok_ru?placeSlug=vprokru_omknq&query={ingredient}&standaloneType=shop',
+  mounted() {
+    this.loadShopsFromLocalStorage();
   },
-]);
-
-onMounted(() => {
-  loadRecipes();
-  loadShopsFromLocalStorage();
+  methods: {
+    loadRecipes() {
+      this.isLoading = true;
+      getAllRecipes()
+        .then((res: RecipesResponse) => {
+          this.currentRecipe = res.recipes.filter((item) => item.id === this.$route.params.id)[0];
+        })
+        .catch((err) => console.error(err))
+        .finally(() => (this.isLoading = false));
+    },
+    loadShopsFromLocalStorage() {
+      const theDefaultSM = {
+        isShowLinksSM: false,
+        selectedSM: { value: 'auchan', label: 'Ашан' },
+      };
+      this.state1 = useStorage('vue-use-local-storage-sm', theDefaultSM);
+      const theDefaultShop = {
+        isShowLinksShop: false,
+        selectedShop: { value: 'vprok', label: 'Впрок' },
+      };
+      this.state2 = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
+    },
+    linkToProductInSM(ingredient: string) {
+      const url =
+        'https://sbermarket.ru/' +
+        `${this.state1.selectedSM.value}` +
+        '/search?keywords=' +
+        `${ingredient.trim()}` +
+        `&sort=` +
+        `${this.selectedSort.value}`;
+      return url;
+    },
+    linkToProductAnotherShop(ingredient: string) {
+      const url = this.shops2.find((item) => item.value === this.state2.selectedShop.value)!.link;
+      return url.replace('{ingredient}', ingredient);
+    },
+    wakeLock() {
+      const requestWakeLock = async () => {
+        try {
+          const wakeLock = await navigator.wakeLock.request('screen');
+          console.log(wakeLock);
+          Notify.create({
+            message: 'WakeLock активирован',
+            type: 'warning',
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      requestWakeLock();
+    },
+  },
 });
-
-function loadRecipes() {
-  isLoading.value = true;
-  getAllRecipes()
-    .then((res: RecipesResponse) => {
-      currentRecipe = res.recipes.filter((item) => item.id === route.params.id)[0];
-    })
-    .catch((err) => console.error(err))
-    .finally(() => (isLoading.value = false));
-}
-function loadShopsFromLocalStorage() {
-  const theDefaultSM = {
-    isShowLinksSM: false,
-    selectedSM: { value: 'auchan', label: 'Ашан' },
-  };
-  state1.value = useStorage('vue-use-local-storage-sm', theDefaultSM);
-  const theDefaultShop = {
-    isShowLinksShop: false,
-    selectedShop: { value: 'vprok', label: 'Впрок' },
-  };
-  state2.value = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
-}
-function linkToProductInSM(ingredient: string) {
-  const url =
-    'https://sbermarket.ru/' +
-    `${state1.selectedSM.value}` +
-    '/search?keywords=' +
-    `${ingredient.trim()}` +
-    `&sort=` +
-    `${selectedSort.value}`;
-  return url;
-}
-function linkToProductAnotherShop(ingredient: string) {
-  const url = shops2.value.find((item) => item.value === state2.selectedShop.value)!.link;
-  return url.replace('{ingredient}', ingredient);
-}
-function wakeLock() {
-  const requestWakeLock = async () => {
-    try {
-      const wakeLock = await navigator.wakeLock.request('screen');
-      console.log(wakeLock);
-      Notify.create({
-        message: 'WakeLock активирован',
-        type: 'warning',
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  requestWakeLock();
-}
 </script>
 
 <style scoped>
