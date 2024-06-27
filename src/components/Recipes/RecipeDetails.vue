@@ -27,6 +27,7 @@
         <p class="text-green-10 q-pl-xs" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
+        <code> state1 {{ state1 }} </code>
         <q-toggle v-model="state1.isShowLinksSM" label="Ссылки на Сбермаркет" :disable="state2.isShowLinksShop" />
         <q-select
           v-model="state1.selectedSM"
@@ -35,7 +36,6 @@
           class="q-select"
           :disable="state2.isShowLinksShop"
         />
-        <q-select v-model="selectedSort" :options="sortOptions" label="Сортировка" :disable="state2.isShowLinksShop" />
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col col-md-3">
         <q-toggle v-model="state2.isShowLinksShop" label="Ссылки на магазин" :disable="state1.isShowLinksSM" />
@@ -158,8 +158,11 @@ let currentRecipe: Recipe = {
   season: 'summer',
 };
 const isLoading = ref(false);
+
+let state1 = ref({ isShowLinksSM: false, selectedSM: { value: 'auchan', label: 'Ашан' } });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const state1 = ref({}) as any;
+// let state1 = ref({}) as any;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const state2 = ref({}) as any;
 const shops1 = ref([
@@ -168,13 +171,6 @@ const shops1 = ref([
   { value: 'globusgiper', label: 'Глобус' },
   { value: 'okey', label: 'Окей' },
 ]);
-const sortOptions = ref([
-  { value: 'popularity', label: 'По популярности' },
-  { value: 'price_asc', label: 'Сначала дешевые' },
-  { value: 'price_desc', label: 'Сначала дорогие' },
-  { value: 'unit_price_asc', label: 'Выгоднее по весу' },
-]);
-const selectedSort = ref({ value: 'unit_price_asc', label: 'Выгоднее по весу' });
 const shops2 = ref([
   { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
   { value: 'metro', label: 'Метро', link: 'https://online.metro-cc.ru/search?q={ingredient}' },
@@ -210,6 +206,7 @@ function loadShopsFromLocalStorage() {
     isShowLinksSM: false,
     selectedSM: { value: 'auchan', label: 'Ашан' },
   };
+  // TODO: починить переключатели и запись в local storage
   state1.value = useStorage('vue-use-local-storage-sm', theDefaultSM);
   const theDefaultShop = {
     isShowLinksShop: false,
@@ -220,15 +217,14 @@ function loadShopsFromLocalStorage() {
 function linkToProductInSM(ingredient: string) {
   const url =
     'https://sbermarket.ru/' +
-    `${state1.selectedSM.value}` +
+    `${state1.value.selectedSM.value}` +
     '/search?keywords=' +
     `${ingredient.trim()}` +
-    `&sort=` +
-    `${selectedSort.value}`;
+    `&sort=unit_price_asc`;
   return url;
 }
 function linkToProductAnotherShop(ingredient: string) {
-  const url = shops2.value.find((item) => item.value === state2.selectedShop.value)!.link;
+  const url = shops2.value.find((item) => item.value === state2.value.selectedShop.value)!.link;
   return url.replace('{ingredient}', ingredient);
 }
 function wakeLock() {
