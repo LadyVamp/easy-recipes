@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-essential'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-recommended'],
   overrides: [
     {
       env: {
@@ -21,5 +21,14 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'vue'],
-  rules: {},
+  rules: {
+    complexity: ['error', { max: 10 }],
+    'vue/max-attributes-per-line': [
+      'error',
+      {
+        singleline: 7,
+      },
+    ],
+    'vue/html-self-closing': 'off',
+  },
 };

@@ -1,5 +1,5 @@
 <template>
-  <q-icon :name="getIcon(season)" :color="getIconColor(season)" :title="getIconLabel(season)" size="24px"></q-icon>
+  <q-icon :name="getIcon(season)" :color="getIconColor(season)" :title="getIconLabel(season)" size="24px" />
 </template>
 
 <script setup lang="ts">

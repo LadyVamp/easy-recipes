@@ -2,38 +2,38 @@
   <div class="row">
     <div class="col-6 col-md-6 col-xs-12 column justify-start items-start content-start">
       <div class="q-pa-xs">
-        <q-btn-group outline v-for="(item, idx) in natureButtons" :key="idx" class="d-block">
+        <q-btn-group v-for="(item, idx) in natureButtons" :key="idx" outline class="d-block">
           <q-btn
             outline
             :color="item.color"
             :icon="item.icon"
             :title="item.title"
-            @click="filterByNature(item)"
             class="border-gray"
+            @click="filterByNature(item)"
           />
         </q-btn-group>
       </div>
       <div class="q-pa-xs">
-        <q-btn-group outline v-for="(item, idx) in featureButtons" :key="idx">
+        <q-btn-group v-for="(item, idx) in featureButtons" :key="idx" outline>
           <q-btn
             outline
             color="orange-5"
             :icon="item.icon"
             :title="item.title"
-            @click="filterByFeature(item)"
             class="border-gray"
+            @click="filterByFeature(item)"
           />
         </q-btn-group>
       </div>
       <div class="q-pa-xs">
-        <q-btn-group outline v-for="(item, idx) in seasonButtons" :key="idx">
+        <q-btn-group v-for="(item, idx) in seasonButtons" :key="idx" outline>
           <q-btn
             outline
             :color="item.color"
             :icon="item.icon"
             :title="item.title"
-            @click="filterBySeason(item)"
             class="border-gray"
+            @click="filterBySeason(item)"
           />
         </q-btn-group>
       </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="col-8 col-md-8 col-xs-4">
           <q-input v-model="searchValue" filled type="search" hint="Поиск" @update:model-value="onSearchInput">
-            <template v-slot:append>
+            <template #append>
               <q-icon name="search" />
             </template>
           </q-input>
@@ -58,7 +58,7 @@
     perspiciatis beatae? Culpa nisi dolorum sed id impedit illo enim fugit molestias obcaecati esse.
   </div>
   <div v-if="filteredList.length > 0" class="row q-mt-md q-mr-sm">
-    <div class="col-md-4 col-xl-3 col-xs-12" v-for="item in filteredList" :key="item.id">
+    <div v-for="item in filteredList" :key="item.id" class="col-md-4 col-xl-3 col-xs-12">
       <q-card class="my-card">
         <q-card-section>
           <router-link
@@ -68,7 +68,9 @@
             }"
           >
             <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
-            <div class="text-h6 q-pa-xs">{{ item.title }}</div>
+            <div class="text-h6 q-pa-xs">
+              {{ item.title }}
+            </div>
             <IconNature :nature="item.nature" />
             <IconFeature :feature="item.feature" />
             <IconSeason :season="item.season" />

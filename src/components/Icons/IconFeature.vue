@@ -1,5 +1,5 @@
 <template>
-  <q-icon :name="getIcon(feature)" color="orange-5" :title="getIconLabel(feature)" size="24px"></q-icon>
+  <q-icon :name="getIcon(feature)" color="orange-5" :title="getIconLabel(feature)" size="24px" />
 </template>
 
 <script setup lang="ts">

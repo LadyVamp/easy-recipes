@@ -1,6 +1,8 @@
 <template>
   <div v-if="!isLoading">
-    <h2 class="q-my-xs">{{ currentRecipe.title }}</h2>
+    <h2 class="q-my-xs">
+      {{ currentRecipe.title }}
+    </h2>
     <div class="row">
       <div class="col col-md-3 col-xs-12">
         <img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" />
@@ -20,11 +22,13 @@
               {{ currentRecipe.servings }}
             </p>
           </div>
-          <div class="col col-xs-2 q-mt-xs" v-if="$q.platform.is.mobile">
+          <div v-if="$q.platform.is.mobile" class="col col-xs-2 q-mt-xs">
             <q-btn outline round color="warning" icon="mdi-sleep-off" @click="wakeLock" />
           </div>
         </div>
-        <p class="text-green-10 q-pl-xs" v-if="currentRecipe.note">{{ currentRecipe.note }}</p>
+        <p v-if="currentRecipe.note" class="text-green-10 q-pl-xs">
+          {{ currentRecipe.note }}
+        </p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
         <q-toggle v-model="state1.isShowLinksSM" label="Ссылки на Сбермаркет" :disable="state2.isShowLinksShop" />
@@ -43,7 +47,9 @@
       </div>
     </div>
     <section>
-      <h3 class="q-my-xs">Ингредиенты</h3>
+      <h3 class="q-my-xs">
+        Ингредиенты
+      </h3>
       <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <li>{{ name }} – {{ value }}</li>
@@ -83,7 +89,9 @@
       </div>
     </section>
     <section v-if="currentRecipe.extra">
-      <h3 class="q-my-xs">Дополнительно</h3>
+      <h3 class="q-my-xs">
+        Дополнительно
+      </h3>
       <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <li>{{ name }} – {{ value }}</li>
