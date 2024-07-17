@@ -185,6 +185,11 @@ const shops2 = ref([
     label: 'Вкусвилл',
     link: 'https://vkusvill.ru/search/?type=products&q={ingredient}',
   },
+  {
+    value: 'dixy',
+    label: 'Дикси',
+    link: 'https://dostavka.dixy.ru/catalog/?q={ingredient}',
+  },
 ]);
 
 onMounted(() => {
