@@ -31,57 +31,54 @@
         </p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
-        <code> state1 {{ state1 }} </code>
-        <q-toggle v-model="state1.isShowLinksSM" label="Ссылки на Сбермаркет" :disable="state2.isShowLinksShop" />
+        <q-toggle v-model="state1.isShowLinksShop1" label="Ссылки на Купер" :disable="state2.isShowLinksShop2" />
         <q-select
-          v-model="state1.selectedSM"
+          v-model="state1.selectedShop1"
           :options="shops1"
           label="Магазин"
           class="q-select"
-          :disable="state2.isShowLinksShop"
+          :disable="state2.isShowLinksShop2"
         />
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col col-md-3">
-        <q-toggle v-model="state2.isShowLinksShop" label="Ссылки на магазин" :disable="state1.isShowLinksSM" />
-        <q-select v-model="state2.selectedShop" :options="shops2" label="Магазин" :disable="state1.isShowLinksSM" />
+        <q-toggle v-model="state2.isShowLinksShop2" label="Ссылки на магазин" :disable="state1.isShowLinksShop1" />
+        <q-select v-model="state2.selectedShop2" :options="shops2" label="Магазин" :disable="state1.isShowLinksShop1" />
       </div>
     </div>
     <section>
-      <h3 class="q-my-xs">
-        Ингредиенты
-      </h3>
-      <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
+      <h3 class="q-my-xs">Ингредиенты</h3>
+      <div v-if="!state1.isShowLinksShop1 && !state2.isShowLinksShop2">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
-      <div v-if="state1.isShowLinksSM">
+      <div v-if="state1.isShowLinksShop1">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <span v-if="name.includes('||')">
-            <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            <a :href="linkToProductShop1(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
-            <a :href="linkToProductInSM(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            <a :href="linkToProductShop1(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
             –
             {{ value }}
           </span>
           <span v-if="!name.includes('||')">
-            <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
+            <a :href="linkToProductShop1(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
         </ul>
       </div>
-      <div v-if="state2.isShowLinksShop">
+      <div v-if="state2.isShowLinksShop2">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
           <span v-if="name.includes('||')">
-            <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
-            <a :href="linkToProductAnotherShop(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            <a :href="linkToProductShop2(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
             –
             {{ value }}
           </span>
           <span v-if="!name.includes('||')">
-            <a :href="linkToProductAnotherShop(name)" target="_blank">{{ name }}</a>
+            <a :href="linkToProductShop2(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
@@ -89,41 +86,39 @@
       </div>
     </section>
     <section v-if="currentRecipe.extra">
-      <h3 class="q-my-xs">
-        Дополнительно
-      </h3>
-      <div v-if="!state1.isShowLinksSM && !state2.isShowLinksShop">
+      <h3 class="q-my-xs">Дополнительно</h3>
+      <div v-if="!state1.isShowLinksShop1 && !state2.isShowLinksShop2">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
-      <div v-if="state1.isShowLinksSM">
+      <div v-if="state1.isShowLinksShop1">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <span v-if="name.includes('||')">
-            <a :href="linkToProductInSM(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            <a :href="linkToProductShop1(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
-            <a :href="linkToProductInSM(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            <a :href="linkToProductShop1(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
             –
             {{ value }}
           </span>
           <span v-if="!name.includes('||')">
-            <a :href="linkToProductInSM(name)" target="_blank">{{ name }}</a>
+            <a :href="linkToProductShop1(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
         </ul>
       </div>
-      <div v-if="state2.isShowLinksShop">
+      <div v-if="state2.isShowLinksShop2">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
           <span v-if="name.includes('||')">
-            <a :href="linkToProductAnotherShop(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
+            <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
-            <a :href="linkToProductAnotherShop(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
+            <a :href="linkToProductShop2(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
             –
             {{ value }}
           </span>
           <span v-if="!name.includes('||')">
-            <a :href="linkToProductAnotherShop(name)" target="_blank">{{ name }}</a>
+            <a :href="linkToProductShop2(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
@@ -140,7 +135,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { Notify } from 'quasar';
 import { useStorage } from '@vueuse/core';
@@ -166,32 +161,29 @@ let currentRecipe: Recipe = {
   season: 'summer',
 };
 const isLoading = ref(false);
+let state1 = reactive({ isShowLinksShop1: false, selectedShop1: { value: 'auchan', label: 'Ашан' } });
+let state2 = reactive({
+  isShowLinksShop2: false,
+  selectedShop2: { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
+});
 
-let state1 = ref({ isShowLinksSM: false, selectedSM: { value: 'auchan', label: 'Ашан' } });
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// let state1 = ref({}) as any;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const state2 = ref({}) as any;
+// TODO: переключатель "Дача": сортирует магазины так, чтобы дачные были в начале списка
 const shops1 = ref([
   { value: 'auchan', label: 'Ашан' },
   { value: 'lenta', label: 'Лента' },
   { value: 'globusgiper', label: 'Глобус' },
   { value: 'okey', label: 'Окей' },
+  { value: 'perekrestokvprok', label: 'Перекресток Впрок' },
+  { value: 'metro', label: 'Metro' },
+  { value: 'vkusvill_darkstore', label: 'Вкусвилл' },
 ]);
 const shops2 = ref([
   { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
-  { value: 'metro', label: 'Метро', link: 'https://online.metro-cc.ru/search?q={ingredient}' },
   { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/{ingredient}' },
   {
-    value: 'perekrestok',
-    label: 'Перекресток',
-    link: 'https://www.perekrestok.ru/cat/search?search={ingredient}',
-  },
-  {
-    value: 'vprokMarket',
-    label: 'Впрок Я.Маркет',
-    link: 'https://shop.market.yandex.ru/retail/vprok_ru?placeSlug=vprokru_omknq&query={ingredient}&standaloneType=shop',
+    value: 'vkusvill',
+    label: 'Вкусвилл',
+    link: 'https://vkusvill.ru/search/?type=products&q={ingredient}',
   },
 ]);
 
@@ -210,29 +202,30 @@ function loadRecipes() {
     .finally(() => (isLoading.value = false));
 }
 function loadShopsFromLocalStorage() {
-  const theDefaultSM = {
-    isShowLinksSM: false,
-    selectedSM: { value: 'auchan', label: 'Ашан' },
-  };
-  // TODO: починить переключатели и запись в local storage
-  state1.value = useStorage('vue-use-local-storage-sm', theDefaultSM);
-  const theDefaultShop = {
-    isShowLinksShop: false,
-    selectedShop: { value: 'vprok', label: 'Впрок' },
-  };
-  state2.value = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
+  console.log('loadShopsFromLocalStorage');
+  // const theDefaultSM = {
+  //   isShowLinksShop1: false,
+  //   selectedShop1: { value: 'auchan', label: 'Ашан' },
+  // };
+  // // TODO: починить переключатели и запись в local storage
+  // state1.value = useStorage('vue-use-local-storage-sm', theDefaultSM);
+  // const theDefaultShop = {
+  //   isShowLinksShop2: false,
+  //   selectedShop2: { value: 'vprok', label: 'Впрок' },
+  // };
+  // state1.value = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
 }
-function linkToProductInSM(ingredient: string) {
+function linkToProductShop1(ingredient: string) {
   const url =
-    'https://sbermarket.ru/' +
-    `${state1.value.selectedSM.value}` +
+    'https://kuper.ru/' +
+    `${state1.selectedShop1.value}` +
     '/search?keywords=' +
     `${ingredient.trim()}` +
     `&sort=unit_price_asc`;
   return url;
 }
-function linkToProductAnotherShop(ingredient: string) {
-  const url = shops2.value.find((item) => item.value === state2.value.selectedShop.value)!.link;
+function linkToProductShop2(ingredient: string) {
+  const url = shops2.value.find((item) => item.value === state2.selectedShop2.value)!.link;
   return url.replace('{ingredient}', ingredient);
 }
 function wakeLock() {
