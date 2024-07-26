@@ -31,6 +31,10 @@
         </p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
+        <code>
+          {{ state1 }}
+        </code>
+        <br />
         <q-toggle v-model="state1.isShowLinksShop1" label="Ссылки на Купер" :disable="state2.isShowLinksShop2" />
         <q-select
           v-model="state1.selectedShop1"
@@ -135,10 +139,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { Notify } from 'quasar';
-import { useStorage } from '@vueuse/core';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
@@ -206,19 +209,23 @@ function loadRecipes() {
     .catch((err) => console.error(err))
     .finally(() => (isLoading.value = false));
 }
+
+watch(
+  () => state1.isShowLinksShop1,
+  (value) => {
+    console.log(`watch isShowLinksShop1 is: ${value}`);
+    localStorage.setItem('store_isShowLinksShop1', JSON.stringify(value));
+    console.log(localStorage.getItem('store_isShowLinksShop1'));
+  },
+);
+
 function loadShopsFromLocalStorage() {
   console.log('loadShopsFromLocalStorage');
-  // const theDefaultSM = {
-  //   isShowLinksShop1: false,
-  //   selectedShop1: { value: 'auchan', label: 'Ашан' },
-  // };
-  // // TODO: починить переключатели и запись в local storage
-  // state1.value = useStorage('vue-use-local-storage-sm', theDefaultSM);
-  // const theDefaultShop = {
-  //   isShowLinksShop2: false,
-  //   selectedShop2: { value: 'vprok', label: 'Впрок' },
-  // };
-  // state1.value = useStorage('vue-use-local-storage-another-shop', theDefaultShop);
+  // если поставить переключатель в false, выбрать другой рецепт, то переключатель будет true. Будто watch сам срабатывает при открытии другого рецепта o_O
+  console.log('store_isShowLinksShop1', Boolean(localStorage.getItem('store_isShowLinksShop1')));
+  state1.isShowLinksShop1 = Boolean(localStorage.getItem('store_isShowLinksShop1'));
+  console.log('state1', state1);
+  // TODO: https://dev.to/alexanderop/how-to-persist-user-data-with-localstorage-in-vue-12h4
 }
 function linkToProductShop1(ingredient: string) {
   const url =
