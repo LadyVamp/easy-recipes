@@ -11,9 +11,10 @@
 <script setup lang="ts">
 // https://dev.to/alexanderop/how-to-persist-user-data-with-localstorage-in-vue-12h4
 // В таком варианте при темной теме в q-select не видны значения для выбора. Попробовать https://quasar.dev/style/dark-mode/
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useDarkMode } from '@/composables/useDarkMode';
 
-const isDarkMode = ref(JSON.parse(localStorage.getItem('darkMode') ?? 'false'));
+const { isDarkMode } = useDarkMode();
 
 const styleProperties = computed(() => ({
   '--background-color': isDarkMode.value ? '#333' : '#FFF',
