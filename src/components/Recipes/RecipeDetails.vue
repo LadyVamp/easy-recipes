@@ -26,15 +26,11 @@
             <q-btn outline round color="warning" icon="mdi-sleep-off" @click="wakeLock" />
           </div>
         </div>
-        <p v-if="currentRecipe.note" class="text-green-10 q-pl-xs">
+        <p v-if="currentRecipe.note" class="text-note-color q-pl-xs">
           {{ currentRecipe.note }}
         </p>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col col-md-3">
-        <code>
-          {{ state1 }}
-        </code>
-        <br />
         <q-toggle v-model="state1.isShowLinksShop1" label="Ссылки на Купер" :disable="state2.isShowLinksShop2" />
         <q-select
           v-model="state1.selectedShop1"
@@ -259,14 +255,16 @@ function wakeLock() {
 
 <style scoped>
 h2 {
-  font-size: 1.6em;
+  font-size: 1.7em;
   font-weight: 500;
   line-height: 1.2rem;
+  color: #00b4ff;
 }
 h3 {
   font-size: 1.4em;
   font-weight: 500;
   line-height: 1rem;
+  color: #00b4ff;
 }
 .q-select {
   margin: 0 10px;

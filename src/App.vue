@@ -3,10 +3,15 @@
     <q-header align="left" elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          Easy Recipes
+          <div class="flex justify-between">
+            <div>
+              <q-avatar>
+                <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+              </q-avatar>
+              Easy Recipes
+            </div>
+            <div><DarkModeButton /></div>
+          </div>
         </q-toolbar-title>
       </q-toolbar>
 
@@ -27,6 +32,7 @@
 
 <script setup>
 import TheFooter from '@/components/Layout/TheFooter.vue';
+import DarkModeButton from '@/components/DarkModeButton.vue';
 </script>
 
 <style lang="scss">
