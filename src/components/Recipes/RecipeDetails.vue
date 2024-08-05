@@ -143,10 +143,7 @@ import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
-import { useShowLinksShop1 } from '@/composables/useShowLinksShop1';
-import { useShowLinksShop2 } from '@/composables/useShowLinksShop2';
-import { useSelectedShop1 } from '@/composables/useSelectedShop1';
-import { useSelectedShop2 } from '@/composables/useSelectedShop2';
+import { useSelectedShops } from '@/composables/useSelectedShops';
 
 const route = useRoute();
 let currentRecipe: Recipe = {
@@ -165,10 +162,10 @@ let currentRecipe: Recipe = {
 };
 const isLoading = ref(false);
 
-const { isShowLinksShop1 } = useShowLinksShop1();
-const { isShowLinksShop2 } = useShowLinksShop2();
-const { selectedShop1 } = useSelectedShop1();
-const { selectedShop2 } = useSelectedShop2();
+const { isShowLinksShop1 } = useSelectedShops();
+const { isShowLinksShop2 } = useSelectedShops();
+const { selectedShop1 } = useSelectedShops();
+const { selectedShop2 } = useSelectedShops();
 
 const shops1 = ref([
   { value: 'auchan', label: 'Ашан' },
