@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header align="left" elevated class="bg-primary text-white" height-hint="98">
+    <q-header align="left" reveal elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <div class="flex justify-between">
