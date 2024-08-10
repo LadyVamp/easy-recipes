@@ -67,7 +67,7 @@
               params: { id: item.id },
             }"
           >
-            <q-img :src="'/recipe-images/' + item.id + '.jpg'" height="200px" />
+            <q-img :src="'/easy-recipes/recipe-images/' + item.id + '.jpg'" height="200px" />
             <div class="text-h6 q-pa-xs">
               {{ item.title }}
             </div>

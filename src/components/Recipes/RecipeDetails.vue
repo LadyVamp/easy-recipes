@@ -5,7 +5,7 @@
     </h2>
     <div class="row">
       <div class="col col-md-3 col-xs-12">
-        <img :src="'/recipe-images/' + currentRecipe.id + '.jpg'" />
+        <img :src="'/easy-recipes/recipe-images/' + currentRecipe.id + '.jpg'" />
       </div>
       <div class="col col-md-3 col-xs-12">
         <div class="row">
