@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/easy-recipes/',
   server: {
     port: 8080,
   },
