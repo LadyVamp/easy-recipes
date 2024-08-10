@@ -3,7 +3,7 @@
     <h2 class="q-my-xs">
       {{ currentRecipe.title }}
     </h2>
-    <div class="row">
+    <div v-if="currentRecipe.id !== ''" class="row">
       <div class="col col-md-3 col-xs-12">
         <img :src="'/easy-recipes/recipe-images/' + currentRecipe.id + '.jpg'" />
       </div>
