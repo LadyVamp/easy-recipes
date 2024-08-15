@@ -126,13 +126,11 @@ export default defineComponent({
         { name: 'stewingdish', title: 'Утятница', icon: 'mdi-dome-light' },
         { name: 'grill', title: 'Гриль', icon: 'mdi-grill' },
         { name: 'toaster', title: 'Мультипекарь', icon: 'mdi-toaster' },
+        { name: 'afghan_cauldron', title: 'Афганский казан', icon: 'mdi-kettlebell' },
       ] as FeatureObj[],
       seasonButtons: [
         { name: 'all', title: 'Все сезоны', icon: 'mdi-sun-snowflake', color: 'light-green-5' },
-        { name: 'winter', title: 'Зима', icon: 'mdi-snowflake', color: 'light-blue-12' },
-        { name: 'spring', title: 'Весна', icon: 'mdi-flower-tulip', color: 'green-13' },
         { name: 'summer', title: 'Лето', icon: 'mdi-white-balance-sunny', color: 'yellow-6' },
-        { name: 'autumn', title: 'Осень', icon: 'mdi-leaf-maple', color: 'amber-10' },
       ] as SeasonObj[],
     };
   },

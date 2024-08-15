@@ -14,28 +14,10 @@ const iconSeasons = [
     color: 'light-green darken-1',
   },
   {
-    key: 'winter',
-    label: 'Зима',
-    icon: 'mdi-snowflake',
-    color: 'light-blue darken-2',
-  },
-  {
-    key: 'spring',
-    label: 'Весна',
-    icon: 'mdi-flower-tulip',
-    color: 'green darken-2',
-  },
-  {
     key: 'summer',
     label: 'Лето',
     icon: 'mdi-white-balance-sunny',
     color: 'yellow darken-1',
-  },
-  {
-    key: 'autumn',
-    label: 'Осень',
-    icon: 'mdi-leaf-maple',
-    color: 'orange darken-2',
   },
 ];
 

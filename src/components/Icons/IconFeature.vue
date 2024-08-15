@@ -42,6 +42,11 @@ const iconFeatures = [
     label: 'Мультипекарь',
     icon: 'mdi-toaster',
   },
+  {
+    key: 'afghan_cauldron',
+    label: 'Афганский казан',
+    icon: 'mdi-kettlebell',
+  },
 ];
 
 function getIcon(feature: Feature) {

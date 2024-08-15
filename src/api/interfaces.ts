@@ -29,14 +29,14 @@ export interface NatureObj {
   color: string;
 }
 
-export type Feature = 'fast' | 'oven' | 'pot' | 'stewingdish' | 'grill' | 'toaster' | 'all';
+export type Feature = 'all' | 'fast' | 'oven' | 'pot' | 'stewingdish' | 'grill' | 'toaster' | 'afghan_cauldron';
 export interface FeatureObj {
   name: Feature;
   title: string;
   icon: string;
 }
 
-export type Season = 'winter' | 'spring' | 'summer' | 'autumn' | 'all';
+export type Season = 'autumn' | 'all';
 export interface SeasonObj {
   name: Season;
   title: string;
