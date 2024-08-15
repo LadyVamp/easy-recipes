@@ -201,6 +201,7 @@ function loadRecipes() {
   getAllRecipes()
     .then((res: RecipesResponse) => {
       currentRecipe = res.recipes.filter((item) => item.id === route.params.id)[0];
+      document.title = `${currentRecipe.title}`;
     })
     .catch((err) => console.error(err))
     .finally(() => (isLoading.value = false));
