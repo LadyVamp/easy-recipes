@@ -6,7 +6,7 @@
           <div class="flex justify-between">
             <div>
               <q-avatar>
-                <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+                <img src="/easy-recipes/logo.png" />
               </q-avatar>
               Easy Recipes
             </div>
