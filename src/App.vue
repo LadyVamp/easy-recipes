@@ -45,4 +45,21 @@ a {
 li {
   list-style-type: none;
 }
+h1 {
+  font-size: 3em;
+  line-height: 1.5rem;
+  color: #00b4ff;
+}
+h2 {
+  font-size: 1.7em;
+  font-weight: 500;
+  line-height: 1.2rem;
+  color: #00b4ff;
+}
+h3 {
+  font-size: 1.4em;
+  font-weight: 500;
+  line-height: 1rem;
+  color: #00b4ff;
+}
 </style>

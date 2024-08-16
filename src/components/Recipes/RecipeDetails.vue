@@ -243,18 +243,6 @@ function wakeLock() {
 </script>
 
 <style scoped>
-h2 {
-  font-size: 1.7em;
-  font-weight: 500;
-  line-height: 1.2rem;
-  color: #00b4ff;
-}
-h3 {
-  font-size: 1.4em;
-  font-weight: 500;
-  line-height: 1rem;
-  color: #00b4ff;
-}
 .q-select {
   margin: 0 10px;
 }
