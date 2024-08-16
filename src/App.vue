@@ -1,12 +1,15 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header align="left" reveal elevated class="bg-primary text-white" height-hint="98">
+  <q-layout view="hHh lpR lff">
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title>
           <div class="flex justify-between">
             <div>
               <q-avatar>
-                <img src="/easy-recipes/logo.png" />
+                <router-link :to="{ path: '/' }">
+                  <img src="/easy-recipes/logo.png" />
+                </router-link>
               </q-avatar>
               Easy Recipes
             </div>
@@ -14,13 +17,31 @@
           </div>
         </q-toolbar-title>
       </q-toolbar>
-
-      <q-tabs align="left" class="bg-white text-blue-6">
-        <q-route-tab to="/" label="Home" />
-        <q-route-tab to="/about" label="About" />
-        <q-route-tab to="/dev" label="Dev" />
-      </q-tabs>
     </q-header>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      overlay
+      :width="200"
+      :breakpoint="500"
+      bordered
+      :behavior="$q.platform.is.mobile ? 'mobile' : 'desktop'"
+      :class="$q.dark.isActive ? 'bg-red-9' : 'bg-grey-3'"
+    >
+      <q-scroll-area class="fit">
+        <q-list>
+          <template v-for="(menuItem, index) in menuList" :key="index">
+            <q-item v-ripple clickable :to="menuItem.to">
+              <q-item-section avatar>
+                <q-icon :name="menuItem.icon" />
+              </q-item-section>
+              <q-item-section>
+                {{ menuItem.label }}
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -31,8 +52,32 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import TheFooter from '@/components/Layout/TheFooter.vue';
 import DarkModeButton from '@/components/DarkModeButton.vue';
+
+const leftDrawerOpen = ref(false);
+const menuList = [
+  {
+    icon: 'mdi-home',
+    label: 'Рецепты',
+    to: '/',
+  },
+  {
+    icon: 'mdi-information-outline',
+    label: 'About',
+    to: '/about',
+  },
+  {
+    icon: 'mdi-code-tags',
+    label: 'Dev',
+    to: '/dev',
+  },
+];
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 </script>
 
 <style lang="scss">
@@ -46,7 +91,7 @@ li {
   list-style-type: none;
 }
 h1 {
-  font-size: 3em;
+  font-size: 2.5em;
   line-height: 1.5rem;
   color: #00b4ff;
 }
