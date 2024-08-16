@@ -48,12 +48,12 @@
     <section>
       <h3 class="q-my-xs">Ингредиенты</h3>
       <div v-if="!isShowLinksShop1 && !isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx" class="q-pl-md">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
       <div v-if="isShowLinksShop1">
-        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx" class="q-pl-md">
           <span v-if="name.includes('||')">
             <a :href="linkToProductShop1(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
@@ -69,7 +69,7 @@
         </ul>
       </div>
       <div v-if="isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx" class="q-pl-md">
           <span v-if="name.includes('||')">
             <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
@@ -88,12 +88,12 @@
     <section v-if="currentRecipe.extra">
       <h3 class="q-my-xs">Дополнительно</h3>
       <div v-if="!isShowLinksShop1 && !isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx" class="q-pl-md">
           <li>{{ name }} – {{ value }}</li>
         </ul>
       </div>
       <div v-if="isShowLinksShop1">
-        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx" class="q-pl-md">
           <span v-if="name.includes('||')">
             <a :href="linkToProductShop1(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
@@ -109,7 +109,7 @@
         </ul>
       </div>
       <div v-if="isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx">
+        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx" class="q-pl-md">
           <span v-if="name.includes('||')">
             <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
             ||
@@ -127,7 +127,7 @@
     </section>
     <section>
       <h3>Приготовление</h3>
-      <ul v-for="(value, name, idx) in currentRecipe.steps" :key="idx">
+      <ul v-for="(value, name, idx) in currentRecipe.steps" :key="idx" class="q-pl-md">
         <li>{{ name }}. {{ value }}</li>
       </ul>
     </section>
