@@ -168,6 +168,7 @@ const { selectedShop1 } = useSelectedShops();
 const { selectedShop2 } = useSelectedShops();
 
 const shops1 = ref([
+  { value: 'multisearch', label: 'Все магазины' },
   { value: 'auchan', label: 'Ашан' },
   { value: 'lenta', label: 'Лента' },
   { value: 'globusgiper', label: 'Глобус' },
@@ -208,13 +209,17 @@ function loadRecipes() {
 }
 
 function linkToProductShop1(ingredient: string) {
-  const url =
-    'https://kuper.ru/' +
-    `${selectedShop1.value.value}` +
-    '/search?keywords=' +
-    `${ingredient.trim()}` +
-    `&sort=unit_price_asc`;
-  return url;
+  if (selectedShop1.value.value === 'multisearch') {
+    return 'https://kuper.ru/multisearch?q=' + `${ingredient.trim()}`;
+  } else {
+    return (
+      'https://kuper.ru/' +
+      `${selectedShop1.value.value}` +
+      '/search?keywords=' +
+      `${ingredient.trim()}` +
+      `&sort=unit_price_asc`
+    );
+  }
 }
 function linkToProductShop2(ingredient: string) {
   const url = shops2.value.find((item) => item.value === selectedShop2.value.value)!.link;

@@ -36,7 +36,7 @@ export interface FeatureObj {
   icon: string;
 }
 
-export type Season = 'autumn' | 'all';
+export type Season = 'all' | 'summer';
 export interface SeasonObj {
   name: Season;
   title: string;
