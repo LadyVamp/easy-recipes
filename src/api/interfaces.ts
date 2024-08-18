@@ -44,6 +44,11 @@ export interface SeasonObj {
   color: string;
 }
 
+export interface Serving {
+  value: number | 'all';
+  label: number | 'Все';
+}
+
 export interface Ingredients {
   Фета?: string;
   Помидоры?: string;

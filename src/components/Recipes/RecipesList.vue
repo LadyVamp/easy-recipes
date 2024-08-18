@@ -40,10 +40,10 @@
     </div>
     <div class="col-6 col-md-6 col-xs-12">
       <div class="row">
-        <div class="col-4 col-md-4 col-xs-4">
+        <div class="col-6">
           <q-select v-model="selectedSearchKey" :options="searchKeys" label="Поиск" />
         </div>
-        <div class="col-8 col-md-8 col-xs-4">
+        <div class="col-6">
           <q-input v-model="searchValue" filled type="search" hint="Поиск" @update:model-value="onSearchInput">
             <template #append>
               <q-icon name="search" />
@@ -52,6 +52,18 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row justify-between q-pa-xs">
+    <div class="col-4">
+      <q-select
+        v-model="selectedServings"
+        :options="servings"
+        label="Порций"
+        class="select-servings"
+        @update:model-value="onServingsSelect"
+      />
+    </div>
+    <div class="col-1 q-mt-lg w-50">{{ filteredList.length }}</div>
   </div>
   <div v-if="filteredList.length < 4" class="invisible">
     Текст, чтобы блоки не скукожились. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore quae molestias
@@ -85,7 +97,7 @@
 import uniq from 'lodash-es/uniq';
 import { defineComponent } from 'vue';
 import { getAllRecipes } from '@/api/recipes';
-import { RecipesResponse, Recipe, NatureObj, FeatureObj, SeasonObj } from '@/api/interfaces';
+import { RecipesResponse, Recipe, NatureObj, FeatureObj, SeasonObj, Serving } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
@@ -107,6 +119,13 @@ export default defineComponent({
         { value: 'ingredients', label: 'По ингредиентам' },
       ],
       selectedSearchKey: { value: 'title', label: 'По названию' },
+      servings: [
+        { value: 'all', label: 'Все' },
+        { value: 2, label: 2 },
+        { value: 4, label: 4 },
+        { value: 6, label: 6 },
+      ],
+      selectedServings: { value: 'all', label: 'Все' },
       // https://pictogrammers.com/library/mdi/
       // https://quasar.dev/style/color-palette/
       natureButtons: [
@@ -190,6 +209,11 @@ export default defineComponent({
         ? (this.filteredList = this.recipes)
         : (this.filteredList = this.recipes.filter((item) => obj.name === item.season));
     },
+    onServingsSelect(value: Serving) {
+      value.value === 'all'
+        ? (this.filteredList = this.recipes)
+        : (this.filteredList = this.recipes.filter((item) => item.servings === value.value));
+    },
   },
 });
 </script>
@@ -206,5 +230,11 @@ export default defineComponent({
 }
 .border-gray:before {
   border: 1px solid lightgray;
+}
+.select-servings {
+  width: 100px;
+}
+.w-50 {
+  width: 50px;
 }
 </style>
