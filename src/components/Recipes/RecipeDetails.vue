@@ -1,5 +1,6 @@
 <template>
   <div v-if="!isLoading">
+    <q-btn outline color="secondary" :icon="'mdi-arrow-left'" :to="'/'" class="border-gray" />
     <h2 class="q-my-xs">
       {{ currentRecipe.title }}
       <q-btn
@@ -256,5 +257,8 @@ function copyToClipBoard(textToCopy: string) {
 <style scoped>
 .q-select {
   margin: 0 10px;
+}
+.border-gray:before {
+  border: 1px solid lightgray;
 }
 </style>
