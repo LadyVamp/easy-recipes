@@ -2,6 +2,14 @@
   <div v-if="!isLoading">
     <h2 class="q-my-xs">
       {{ currentRecipe.title }}
+      <q-btn
+        flat
+        round
+        color="secondary"
+        icon="mdi-content-copy"
+        title="Скопировать"
+        @click="copyToClipBoard(currentRecipe.title)"
+      />
     </h2>
     <div v-if="currentRecipe.id !== ''" class="row">
       <div class="col col-md-3 col-xs-12">
@@ -239,6 +247,9 @@ function wakeLock() {
     }
   };
   requestWakeLock();
+}
+function copyToClipBoard(textToCopy: string) {
+  navigator.clipboard.writeText(textToCopy);
 }
 </script>
 
