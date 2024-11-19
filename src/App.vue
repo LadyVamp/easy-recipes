@@ -73,6 +73,11 @@ const menuList = [
     label: 'Dev',
     to: '/dev',
   },
+  {
+    icon: 'mdi-playlist-check',
+    label: 'Список покупок',
+    to: '/shopping-list',
+  },
 ];
 
 function toggleLeftDrawer() {

@@ -27,6 +27,14 @@ const routes = [
     },
   },
   {
+    path: '/shopping-list',
+    name: 'Shopping-list',
+    component: () => import('@/views/ShoppingListView.vue'),
+    meta: {
+      title: 'Список покупок',
+    },
+  },
+  {
     path: '/recipe/:id',
     name: 'RecipeDetails',
     component: RecipeDetails,
