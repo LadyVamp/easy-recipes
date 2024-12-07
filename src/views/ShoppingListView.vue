@@ -1,5 +1,4 @@
 <template>
-  <h1>Список покупок</h1>
   <div class="row q-mt-sm">
     <div class="q-mt-xl">
       <ul v-for="(value, idx) in shoppingList" :key="idx" class="q-pl-md">
@@ -20,7 +19,7 @@ const { selectedShop1 } = useSelectedShops();
 const shops1 = ref([
   { value: 'multisearch', label: 'Все магазины' },
   { value: 'auchan', label: 'Ашан' },
-  { value: 'lenta', label: 'Лента' },
+  { value: 'lentagp', label: 'Лента' },
   { value: 'globusgiper', label: 'Глобус' },
   { value: 'okey', label: 'Окей' },
   { value: 'perekrestok', label: 'Перекресток' },
