@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <q-dialog v-model="modalAddProduct" persistent>
+  <q-dialog v-model="modalAddProduct" persistent @before-show="productLS = ''">
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">Добавление продукта</div>
@@ -47,7 +47,7 @@ const { selectedShop1 } = useSelectedShops();
 const productSearchInput = ref('');
 const modalAddProduct = ref(false);
 const productLS = ref('');
-const shoppingListLS = ref(['Тестовый продукт']);
+const shoppingListLS = ref<string[]>(JSON.parse(localStorage.getItem('shoppingList') || '[]') || []);
 
 const shops1 = ref([
   { value: 'multisearch', label: 'Все магазины' },
@@ -105,21 +105,13 @@ function searchProduct() {
 
 function addToLS() {
   shoppingListLS.value.push(productLS.value);
-  console.log(shoppingListLS.value);
-  // TODO: Добавить продукт в LocalStorage
-  console.log('localStorage shoppingList', localStorage.getItem('shoppingList'));
-}
-function removeFromLS(value: string) {
-  shoppingListLS.value = shoppingListLS.value.filter((item) => item !== value);
-  console.log(shoppingListLS.value);
-  // TODO: Удалить продукт из LocalStorage
-  console.log('localStorage shoppingList', localStorage.getItem('shoppingList'));
+  localStorage.setItem('shoppingList', JSON.stringify(shoppingListLS.value));
 }
 
-/**
- * TODO:
- * Добавить/удалить продукт из LocalStorage
- */
+function removeFromLS(value: string) {
+  shoppingListLS.value = shoppingListLS.value.filter((item) => item !== value);
+  localStorage.setItem('shoppingList', JSON.stringify(shoppingListLS.value));
+}
 </script>
 
 <style lang="scss" scoped>
