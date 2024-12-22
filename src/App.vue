@@ -69,14 +69,14 @@ const menuList = [
     to: '/about',
   },
   {
+    icon: 'mdi-format-list-checks',
+    label: 'Список покупок',
+    to: '/shopping-list',
+  },
+  {
     icon: 'mdi-code-tags',
     label: 'Dev',
     to: '/dev',
-  },
-  {
-    icon: 'mdi-playlist-check',
-    label: 'Список покупок',
-    to: '/shopping-list',
   },
 ];
 

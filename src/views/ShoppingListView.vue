@@ -28,7 +28,15 @@
         <div class="text-h6">Добавление продукта</div>
       </q-card-section>
       <q-card-section class="q-pt-none">
-        <q-input v-model="productLS" dense autofocus @keyup.enter="modalAddProduct = false" />
+        <q-input
+          v-model="productLS"
+          dense
+          autofocus
+          @keyup.enter="
+            addToLS();
+            modalAddProduct = false;
+          "
+        />
       </q-card-section>
       <q-card-actions align="right" class="text-primary">
         <q-btn v-close-popup flat label="Отмена" />
