@@ -112,8 +112,11 @@ function searchProduct() {
 }
 
 function addToLS() {
-  shoppingListLS.value.push(productLS.value);
-  localStorage.setItem('shoppingList', JSON.stringify(shoppingListLS.value));
+  productLS.value = productLS.value.trim();
+  if (productLS.value.length > 0) {
+    shoppingListLS.value.push(productLS.value);
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingListLS.value));
+  }
 }
 
 function removeFromLS(value: string) {
