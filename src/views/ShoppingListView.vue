@@ -11,12 +11,38 @@
       </div>
       <div class="col col-6">
         <ul v-for="(value, idx) in regularShoppingList" :key="idx" class="q-pl-md">
-          <a :href="linkToProductShop1(value)" target="_blank">{{ value }}</a>
+          <a :href="linkToProductShop1(value)" target="_blank">{{ value }} </a>
+          <q-btn
+            flat
+            round
+            color="secondary"
+            icon="mdi-content-copy"
+            size="sm"
+            title="Скопировать"
+            @click="copyToClipBoard(value)"
+          />
         </ul>
         <q-btn :icon="'mdi-plus'" color="primary" class="q-ml-md" @click="modalAddProduct = true" />
         <ul v-for="(value, idx) in shoppingListLS" :key="idx" class="q-pl-md">
           <a :href="linkToProductShop1(value)" target="_blank">{{ value }}</a>
-          <q-btn flat color="orange-5" :icon="'mdi-minus'" class="border-gray" @click="removeFromLS(value)" />
+          <q-btn
+            flat
+            round
+            color="secondary"
+            icon="mdi-content-copy"
+            size="sm"
+            title="Скопировать"
+            @click="copyToClipBoard(value)"
+          />
+          <q-btn
+            flat
+            round
+            color="orange-5"
+            :icon="'mdi-minus'"
+            size="sm"
+            class="border-gray"
+            @click="removeFromLS(value)"
+          />
         </ul>
       </div>
     </div>
@@ -122,6 +148,10 @@ function addToLS() {
 function removeFromLS(value: string) {
   shoppingListLS.value = shoppingListLS.value.filter((item) => item !== value);
   localStorage.setItem('shoppingList', JSON.stringify(shoppingListLS.value));
+}
+
+function copyToClipBoard(textToCopy: string) {
+  navigator.clipboard.writeText(textToCopy);
 }
 </script>
 
