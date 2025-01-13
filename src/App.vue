@@ -74,6 +74,11 @@ const menuList = [
     to: '/shopping-list',
   },
   {
+    icon: 'mdi-lightbulb-outline',
+    label: 'Cheatsheets',
+    to: '/cheatsheets',
+  },
+  {
     icon: 'mdi-code-tags',
     label: 'Dev',
     to: '/dev',

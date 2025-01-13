@@ -39,6 +39,14 @@ const routes = [
     name: 'RecipeDetails',
     component: RecipeDetails,
   },
+  {
+    path: '/cheatsheets',
+    name: 'Cheatsheets',
+    component: () => import('@/views/CheatsheetsView.vue'),
+    meta: {
+      title: 'Cheatsheets',
+    },
+  },
 ];
 
 const router = createRouter({
