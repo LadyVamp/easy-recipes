@@ -7,7 +7,7 @@
             <q-btn color="secondary" icon-right="search" :disable="productSearchInput === ''" @click="searchProduct" />
           </template>
         </q-input>
-        <q-select v-model="selectedShop1" :options="shops1" label="Магазин" class="q-select" />
+        <q-select v-model="selectedShop1" :options="shops1AndShops2" label="Магазин" class="q-select" />
       </div>
       <div class="col col-6">
         <ul v-for="(value, idx) in regularShoppingList" :key="idx" class="q-pl-md">
@@ -83,16 +83,51 @@ const modalAddProduct = ref(false);
 const productLS = ref('');
 const shoppingListLS = ref<string[]>(JSON.parse(localStorage.getItem('shoppingList') || '[]') || []);
 
-const shops1 = ref([
-  { value: 'multisearch', label: 'Все магазины' },
-  { value: 'auchan', label: 'Ашан' },
-  { value: 'lentagp', label: 'Лента' },
-  { value: 'globusgiper', label: 'Глобус' },
-  { value: 'okey', label: 'Окей' },
-  { value: 'perekrestok', label: 'Перекресток' },
-  { value: 'perekrestokvprok', label: 'Перекресток Впрок' },
-  { value: 'metro', label: 'Metro' },
-  { value: 'vkusvill_darkstore', label: 'Вкусвилл' },
+const shops1AndShops2 = ref([
+  {
+    value: 'vkusvill',
+    label: 'Вкусвилл',
+    link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
+  },
+  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
+  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/ingredient' },
+  { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
+  {
+    value: 'auchan',
+    label: 'Купер Ашан',
+    link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'lentagp',
+    label: 'Купер Лента',
+    link: 'https://kuper.ru/lentagp/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'globusgiper',
+    label: 'Купер Глобус',
+    link: 'https://kuper.ru/globusgiper/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  { value: 'okey', label: 'Купер Окей', link: 'https://kuper.ru/okey/search?keywords=ingredient&sort=unit_price_asc' },
+  {
+    value: 'perekrestok',
+    label: 'Купер Перекресток',
+    link: 'https://kuper.ru/perekrestok/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'perekrestokvprok',
+    label: 'Купер Перекресток Впрок',
+    link: 'https://kuper.ru/perekrestokvprok/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'metro',
+    label: 'Купер Metro',
+    link: 'https://kuper.ru/metro/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'vkusvill_darkstore',
+    label: 'Купер Вкусвилл',
+    link: 'https://kuper.ru/vkusvill_darkstore/search?keywords=ingredient&sort=unit_price_asc',
+  },
 ]);
 
 const regularShoppingList = ref([
@@ -100,36 +135,23 @@ const regularShoppingList = ref([
   'Груши',
   'Йогурт греческий',
   'Йогурт термостатный',
-  'Вода 5 л',
   'Яйцо куриное СО',
   'Хлеб зерновой',
 ]);
 
 function linkToProductShop1(ingredient: string) {
   if (selectedShop1.value.value === 'multisearch') {
-    return 'https://kuper.ru/multisearch?q=' + `${ingredient.trim()}`;
+    return 'https://kuper.ru/multisearch?q=' + ingredient.trim();
   } else {
-    return (
-      'https://kuper.ru/' +
-      `${selectedShop1.value.value}` +
-      '/search?keywords=' +
-      `${ingredient.trim()}` +
-      `&sort=unit_price_asc`
-    );
+    return selectedShop1.value.link?.replace('ingredient', ingredient.trim());
   }
 }
 
 function linkToProductShop1FromInput() {
   if (selectedShop1.value.value === 'multisearch') {
-    return 'https://kuper.ru/multisearch?q=' + `${productSearchInput.value.trim()}`;
+    return 'https://kuper.ru/multisearch?q=' + productSearchInput.value.trim();
   } else {
-    return (
-      'https://kuper.ru/' +
-      `${selectedShop1.value.value}` +
-      '/search?keywords=' +
-      `${productSearchInput.value.trim()}` +
-      `&sort=unit_price_asc`
-    );
+    return selectedShop1.value.link.replace('ingredient', productSearchInput.value.trim());
   }
 }
 

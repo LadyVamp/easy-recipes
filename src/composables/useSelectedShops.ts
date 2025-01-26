@@ -3,7 +3,13 @@ import { LocalStorageHandler } from '@/utils/LocalStorageHandler';
 
 export function useSelectedShops() {
   const isShowLinksShop1 = ref(LocalStorageHandler.getItem('isShowLinksShop1') ?? false);
-  const selectedShop1 = ref(LocalStorageHandler.getItem('selectedShop1') ?? { value: 'auchan', label: 'Ашан' });
+  const selectedShop1 = ref(
+    LocalStorageHandler.getItem('selectedShop1') ?? {
+      value: 'auchan',
+      label: 'Купер Ашан',
+      link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
+    },
+  );
   const isShowLinksShop2 = ref(LocalStorageHandler.getItem('isShowLinksShop2') ?? false);
   const selectedShop2 = ref(
     LocalStorageHandler.getItem('selectedShop2') ?? {

@@ -177,28 +177,56 @@ const { selectedShop1 } = useSelectedShops();
 const { selectedShop2 } = useSelectedShops();
 
 const shops1 = ref([
-  { value: 'multisearch', label: 'Все магазины' },
-  { value: 'auchan', label: 'Ашан' },
-  { value: 'lenta', label: 'Лента' },
-  { value: 'globusgiper', label: 'Глобус' },
-  { value: 'okey', label: 'Окей' },
-  { value: 'perekrestok', label: 'Перекресток' },
-  { value: 'perekrestokvprok', label: 'Перекресток Впрок' },
-  { value: 'metro', label: 'Metro' },
-  { value: 'vkusvill_darkstore', label: 'Вкусвилл' },
+  { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
+  {
+    value: 'auchan',
+    label: 'Купер Ашан',
+    link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'lentagp',
+    label: 'Купер Лента',
+    link: 'https://kuper.ru/lentagp/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'globusgiper',
+    label: 'Купер Глобус',
+    link: 'https://kuper.ru/globusgiper/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  { value: 'okey', label: 'Купер Окей', link: 'https://kuper.ru/okey/search?keywords=ingredient&sort=unit_price_asc' },
+  {
+    value: 'perekrestok',
+    label: 'Купер Перекресток',
+    link: 'https://kuper.ru/perekrestok/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'perekrestokvprok',
+    label: 'Купер Перекресток Впрок',
+    link: 'https://kuper.ru/perekrestokvprok/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'metro',
+    label: 'Купер Metro',
+    link: 'https://kuper.ru/metro/search?keywords=ingredient&sort=unit_price_asc',
+  },
+  {
+    value: 'vkusvill_darkstore',
+    label: 'Купер Вкусвилл',
+    link: 'https://kuper.ru/vkusvill_darkstore/search?keywords=ingredient&sort=unit_price_asc',
+  },
 ]);
 const shops2 = ref([
-  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text={ingredient}' },
-  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/{ingredient}' },
+  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
+  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/ingredient' },
   {
     value: 'vkusvill',
     label: 'Вкусвилл',
-    link: 'https://vkusvill.ru/search/?type=products&q={ingredient}',
+    link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
   },
   {
     value: 'dixy',
     label: 'Дикси',
-    link: 'https://dostavka.dixy.ru/catalog/?q={ingredient}',
+    link: 'https://dostavka.dixy.ru/catalog/?q=ingredient',
   },
 ]);
 
@@ -219,20 +247,14 @@ function loadRecipes() {
 
 function linkToProductShop1(ingredient: string) {
   if (selectedShop1.value.value === 'multisearch') {
-    return 'https://kuper.ru/multisearch?q=' + `${ingredient.trim()}`;
+    return 'https://kuper.ru/multisearch?q=' + ingredient.trim();
   } else {
-    return (
-      'https://kuper.ru/' +
-      `${selectedShop1.value.value}` +
-      '/search?keywords=' +
-      `${ingredient.trim()}` +
-      `&sort=unit_price_asc`
-    );
+    return selectedShop1.value.link?.replace('ingredient', ingredient.trim());
   }
 }
 function linkToProductShop2(ingredient: string) {
   const url = shops2.value.find((item) => item.value === selectedShop2.value.value)!.link;
-  return url.replace('{ingredient}', ingredient);
+  return url.replace('ingredient', ingredient);
 }
 function wakeLock() {
   const requestWakeLock = async () => {

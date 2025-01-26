@@ -1,4 +1,4 @@
-export type Select = { value: string; label: string };
+export type Select = { value: string; label: string, link: string };
 
 export type LocalStorageValues = {
   darkMode: boolean;
