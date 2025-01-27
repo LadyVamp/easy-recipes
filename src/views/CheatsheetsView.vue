@@ -14,53 +14,40 @@
 <script>
 const columns = [
   { name: 'cereals', label: 'Крупа', field: 'cereals' },
-  { name: 'ratio', label: 'Соотношение крупы и воды', field: 'ratio' },
-  { name: 'time', label: 'Время варки (минут)', field: 'time' },
-  { name: 'shelf_life', label: 'Срок хранения', field: 'shelf_life' },
+  { name: 'time', label: 'Время варки, минут', field: 'time' },
+  { name: 'serving', label: 'Порция, г', field: 'serving' },
 ];
 
 const rows = [
   {
     cereals: 'Гречка',
-    ratio: '1:2',
-    time: '7',
-    shelf_life: '2 года',
+    time: 7,
+    serving: 50,
   },
   {
     cereals: 'Рис коричневый',
-    ratio: '1:2',
-    time: '30',
-    shelf_life: '6 месяцев',
+    time: 30,
+    serving: 50,
   },
   {
     cereals: 'Булгур',
-    ratio: '1:2',
-    time: '15',
-    shelf_life: '1 год',
+    time: 15,
+    serving: 50,
   },
   {
     cereals: 'Чечевица красная',
-    ratio: '1:2',
-    time: '10',
-    shelf_life: '1 год',
+    time: 10,
+    serving: 50,
   },
   {
     cereals: 'Чечевица зеленая',
-    ratio: '1:2',
-    time: '15',
-    shelf_life: '1 год',
+    time: 15,
+    serving: 50,
   },
   {
     cereals: 'Макароны',
-    ratio: '1:2',
-    time: '12',
-    shelf_life: '2,5 года',
-  },
-  {
-    cereals: 'Горох колотый',
-    ratio: '1:2',
-    time: '30',
-    shelf_life: '1 год',
+    time: 12,
+    serving: 70,
   },
 ];
 
