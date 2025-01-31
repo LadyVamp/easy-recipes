@@ -89,6 +89,11 @@ const shops1AndShops2 = ref([
     label: 'Вкусвилл',
     link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
   },
+  {
+    value: 'ozonfresh',
+    label: 'Ozon Fresh',
+    link: 'https://www.ozon.ru/category/supermarket-25000/?miniapp=supermarket&text=ingredient',
+  },
   { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
   { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/ingredient' },
   { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
