@@ -95,7 +95,7 @@ const shops1AndShops2 = ref([
     link: 'https://www.ozon.ru/category/supermarket-25000/?miniapp=supermarket&text=ingredient',
   },
   { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
-  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/ingredient' },
+  { value: 'lenta', label: 'Лента', link: 'https://moscow.lenta.com/search/ingredient' },
   { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
   {
     value: 'auchan',
