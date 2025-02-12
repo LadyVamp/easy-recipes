@@ -10,7 +10,7 @@
         <q-select v-model="selectedShop1" :options="shops1AndShops2" label="Магазин" class="q-select" />
       </div>
       <div class="col col-6">
-        <ul v-for="(value, idx) in regularShoppingList" :key="idx" class="q-pl-md">
+        <ul v-for="(value, idx) in regularShoppingList" :key="idx" class="q-pl-md q-ma-none">
           <a :href="linkToProductShop1(value)" target="_blank">{{ value }} </a>
           <q-btn
             flat
@@ -22,9 +22,9 @@
             @click="copyToClipBoard(value)"
           />
         </ul>
-        <q-btn :icon="'mdi-plus'" color="primary" class="q-ml-md" @click="modalAddProduct = true" />
-        <q-btn :icon="'mdi-delete'" color="negative" class="q-ml-md" @click="modalDeleteList = true" />
-        <ul v-for="(value, idx) in shoppingListLS" :key="idx" class="q-pl-md">
+        <q-btn :icon="'mdi-plus'" color="primary" class="q-ml-md q-my-md" @click="modalAddProduct = true" />
+        <q-btn :icon="'mdi-delete'" color="negative" class="q-ml-md q-my-md" @click="modalDeleteList = true" />
+        <ul v-for="(value, idx) in shoppingListLS" :key="idx" class="q-pl-md q-ma-none">
           <a :href="linkToProductShop1(value)" target="_blank">{{ value }}</a>
           <q-btn
             flat
