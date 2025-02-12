@@ -23,6 +23,7 @@
           />
         </ul>
         <q-btn :icon="'mdi-plus'" color="primary" class="q-ml-md" @click="modalAddProduct = true" />
+        <q-btn :icon="'mdi-delete'" color="negative" class="q-ml-md" @click="modalDeleteList = true" />
         <ul v-for="(value, idx) in shoppingListLS" :key="idx" class="q-pl-md">
           <a :href="linkToProductShop1(value)" target="_blank">{{ value }}</a>
           <q-btn
@@ -70,6 +71,17 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="modalDeleteList" persistent>
+    <q-card style="min-width: 350px">
+      <q-card-section>
+        <div class="text-h6">Удалить список?</div>
+      </q-card-section>
+      <q-card-actions align="right" class="text-primary">
+        <q-btn v-close-popup flat label="Отмена" />
+        <q-btn v-close-popup color="negative" label="Удалить" @click="deleteShoppingList" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup lang="ts">
@@ -80,6 +92,7 @@ const { selectedShop1 } = useSelectedShops();
 
 const productSearchInput = ref('');
 const modalAddProduct = ref(false);
+const modalDeleteList = ref(false);
 const productLS = ref('');
 const shoppingListLS = ref<string[]>(JSON.parse(localStorage.getItem('shoppingList') || '[]') || []);
 
@@ -179,6 +192,11 @@ function removeFromLS(value: string) {
 
 function copyToClipBoard(textToCopy: string) {
   navigator.clipboard.writeText(textToCopy);
+}
+
+function deleteShoppingList() {
+  localStorage.setItem('shoppingList', '[]');
+  shoppingListLS.value = [];
 }
 </script>
 
