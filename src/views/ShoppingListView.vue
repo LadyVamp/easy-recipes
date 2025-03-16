@@ -98,6 +98,11 @@ const shoppingListLS = ref<string[]>(JSON.parse(localStorage.getItem('shoppingLi
 
 const shops1AndShops2 = ref([
   {
+    value: 'lavka',
+    label: 'Яндекс Лавка',
+    link: 'https://lavka.yandex.ru/search?text=ingredient',
+  },
+  {
     value: 'metro',
     label: 'Metro',
     link: 'https://online.metro-cc.ru/search?q=ingredient',
