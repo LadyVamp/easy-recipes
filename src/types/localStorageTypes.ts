@@ -5,7 +5,6 @@ export type LocalStorageValues = {
   isShowLinksShop1: boolean;
   isShowLinksShop2: boolean;
   selectedShop1: Select;
-  selectedShop2: Select;
 };
 
 export type LocalStorageKeys = keyof LocalStorageValues;

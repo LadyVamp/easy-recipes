@@ -10,14 +10,6 @@ export function useSelectedShops() {
       link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
     },
   );
-  const isShowLinksShop2 = ref(LocalStorageHandler.getItem('isShowLinksShop2') ?? false);
-  const selectedShop2 = ref(
-    LocalStorageHandler.getItem('selectedShop2') ?? {
-      value: 'vprok',
-      label: 'Впрок',
-      link: 'https://www.vprok.ru/catalog/search?text={ingredient}',
-    },
-  );
 
   watch(isShowLinksShop1, (newValue) => {
     LocalStorageHandler.setItem('isShowLinksShop1', newValue);
@@ -25,12 +17,6 @@ export function useSelectedShops() {
   watch(selectedShop1, (newValue) => {
     LocalStorageHandler.setItem('selectedShop1', newValue);
   });
-  watch(isShowLinksShop2, (newValue) => {
-    LocalStorageHandler.setItem('isShowLinksShop2', newValue);
-  });
-  watch(selectedShop2, (newValue) => {
-    LocalStorageHandler.setItem('selectedShop2', newValue);
-  });
 
-  return { isShowLinksShop1, selectedShop1, isShowLinksShop2, selectedShop2 };
+  return { isShowLinksShop1, selectedShop1 };
 }

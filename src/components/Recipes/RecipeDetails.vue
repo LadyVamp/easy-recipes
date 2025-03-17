@@ -39,24 +39,20 @@
           {{ currentRecipe.note }}
         </p>
       </div>
-      <div v-if="!$q.platform.is.mobile" class="col col-md-3">
-        <q-toggle v-model="isShowLinksShop1" label="Ссылки на Купер" :disable="isShowLinksShop2" />
-        <q-select
-          v-model="selectedShop1"
-          :options="shops1"
-          label="Магазин"
-          class="q-select"
-          :disable="isShowLinksShop2"
-        />
-      </div>
-      <div v-if="!$q.platform.is.mobile" class="col col col-md-3">
-        <q-toggle v-model="isShowLinksShop2" label="Ссылки на магазин" :disable="isShowLinksShop1" />
-        <q-select v-model="selectedShop2" :options="shops2" label="Магазин" :disable="isShowLinksShop1" />
+      <div class="col col-md-4 col-xs-12 q-my-xs">
+        <div class="row">
+          <div class="col col-md-6 col-xs-6 q-mt-sm">
+            <q-toggle v-model="isShowLinksShop1" label="Ссылки на магазины" />
+          </div>
+          <div class="col col-md-6 col-xs-6">
+            <DropdownListShops v-model="selectedShop1" />
+          </div>
+        </div>
       </div>
     </div>
     <section>
-      <h3 class="q-my-xs">Ингредиенты</h3>
-      <div v-if="!isShowLinksShop1 && !isShowLinksShop2">
+      <h3 class="q-my-sm">Ингредиенты</h3>
+      <div v-if="!isShowLinksShop1">
         <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx" class="q-pl-md">
           <li>{{ name }} – {{ value }}</li>
         </ul>
@@ -72,22 +68,6 @@
           </span>
           <span v-if="!name.includes('||')">
             <a :href="linkToProductShop1(name)" target="_blank">{{ name }}</a>
-            –
-            {{ value }}
-          </span>
-        </ul>
-      </div>
-      <div v-if="isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.ingredients" :key="idx" class="q-pl-md">
-          <span v-if="name.includes('||')">
-            <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
-            ||
-            <a :href="linkToProductShop2(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
-            –
-            {{ value }}
-          </span>
-          <span v-if="!name.includes('||')">
-            <a :href="linkToProductShop2(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
@@ -96,7 +76,7 @@
     </section>
     <section v-if="currentRecipe.extra">
       <h3 class="q-my-xs">Дополнительно</h3>
-      <div v-if="!isShowLinksShop1 && !isShowLinksShop2">
+      <div v-if="!isShowLinksShop1">
         <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx" class="q-pl-md">
           <li>{{ name }} – {{ value }}</li>
         </ul>
@@ -112,22 +92,6 @@
           </span>
           <span v-if="!name.includes('||')">
             <a :href="linkToProductShop1(name)" target="_blank">{{ name }}</a>
-            –
-            {{ value }}
-          </span>
-        </ul>
-      </div>
-      <div v-if="isShowLinksShop2">
-        <ul v-for="(value, name, idx) in currentRecipe.extra" :key="idx" class="q-pl-md">
-          <span v-if="name.includes('||')">
-            <a :href="linkToProductShop2(name.split('||')[0])" target="_blank">{{ name.split('||')[0] }}</a>
-            ||
-            <a :href="linkToProductShop2(name.split('||')[1])" target="_blank">{{ name.split('||')[1] }}</a>
-            –
-            {{ value }}
-          </span>
-          <span v-if="!name.includes('||')">
-            <a :href="linkToProductShop2(name)" target="_blank">{{ name }}</a>
             –
             {{ value }}
           </span>
@@ -152,6 +116,7 @@ import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
+import DropdownListShops from '@/components/DropdownListShops.vue';
 import { useSelectedShops } from '@/composables/useSelectedShops';
 
 const route = useRoute();
@@ -172,63 +137,7 @@ let currentRecipe: Recipe = {
 const isLoading = ref(false);
 
 const { isShowLinksShop1 } = useSelectedShops();
-const { isShowLinksShop2 } = useSelectedShops();
 const { selectedShop1 } = useSelectedShops();
-const { selectedShop2 } = useSelectedShops();
-
-const shops1 = ref([
-  { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
-  {
-    value: 'auchan',
-    label: 'Купер Ашан',
-    link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  {
-    value: 'lentagp',
-    label: 'Купер Лента',
-    link: 'https://kuper.ru/lentagp/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  {
-    value: 'globusgiper',
-    label: 'Купер Глобус',
-    link: 'https://kuper.ru/globusgiper/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  { value: 'okey', label: 'Купер Окей', link: 'https://kuper.ru/okey/search?keywords=ingredient&sort=unit_price_asc' },
-  {
-    value: 'perekrestok',
-    label: 'Купер Перекресток',
-    link: 'https://kuper.ru/perekrestok/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  {
-    value: 'perekrestokvprok',
-    label: 'Купер Перекресток Впрок',
-    link: 'https://kuper.ru/perekrestokvprok/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  {
-    value: 'metro',
-    label: 'Купер Metro',
-    link: 'https://kuper.ru/metro/search?keywords=ingredient&sort=unit_price_asc',
-  },
-  {
-    value: 'vkusvill_darkstore',
-    label: 'Купер Вкусвилл',
-    link: 'https://kuper.ru/vkusvill_darkstore/search?keywords=ingredient&sort=unit_price_asc',
-  },
-]);
-const shops2 = ref([
-  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
-  { value: 'lenta', label: 'Лента', link: 'https://moscow.online.lenta.com/search/ingredient' },
-  {
-    value: 'vkusvill',
-    label: 'Вкусвилл',
-    link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
-  },
-  {
-    value: 'dixy',
-    label: 'Дикси',
-    link: 'https://dostavka.dixy.ru/catalog/?q=ingredient',
-  },
-]);
 
 onMounted(() => {
   loadRecipes();
@@ -252,10 +161,7 @@ function linkToProductShop1(ingredient: string) {
     return selectedShop1.value.link?.replace('ingredient', ingredient.trim());
   }
 }
-function linkToProductShop2(ingredient: string) {
-  const url = shops2.value.find((item) => item.value === selectedShop2.value.value)!.link;
-  return url.replace('ingredient', ingredient);
-}
+
 function wakeLock() {
   const requestWakeLock = async () => {
     try {
