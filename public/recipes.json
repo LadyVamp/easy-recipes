@@ -341,7 +341,7 @@
     {
       "id": "Tortilya-ovoshchnaya",
       "title": "Тортилья овощная",
-      "servings": 6,
+      "servings": 4,
       "ingredients": {
         "Смесь овощная": "3 пакета",
         "Яйцо куриное": "6 шт",
@@ -674,8 +674,8 @@
       "season": "all"
     },
     {
-      "id": "Svinina-so-struchkovoi-fasolyu",
-      "title": "Свинина со стручковой фасолью",
+      "id": "Zharenaya-svinaya-virezka",
+      "title": "Жареная свиная вырезка",
       "servings": 2,
       "ingredients": {
         "Вырезка свиная": "600 г",
@@ -2214,7 +2214,7 @@
     {
       "id": "Plov-s-indeikoi",
       "title": "Плов с индейкой",
-      "servings": 4,
+      "servings": 6,
       "ingredients": {
         "Филе грудки индейки": "500 г",
         "Рис басмати": "280 г",
