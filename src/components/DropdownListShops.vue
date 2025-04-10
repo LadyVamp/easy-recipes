@@ -9,6 +9,11 @@ const { selectedShop1 } = useSelectedShops();
 
 const shops1AndShops2 = ref([
   {
+    value: 'edadeal',
+    label: 'Едадил',
+    link: 'https://edadeal.ru/moskva/offers/search?keywords=ingredient',
+  },
+  {
     value: 'perekrestok',
     label: 'Перекресток',
     link: 'https://www.perekrestok.ru/cat/search?search=ingredient',
