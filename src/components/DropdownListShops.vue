@@ -9,6 +9,11 @@ const { selectedShop1 } = useSelectedShops();
 
 const shops1AndShops2 = ref([
   {
+    value: 'perekrestok',
+    label: 'Перекресток',
+    link: 'https://www.perekrestok.ru/cat/search?search=ingredient',
+  },
+  {
     value: 'lavka',
     label: 'Яндекс Лавка',
     link: 'https://lavka.yandex.ru/search?text=ingredient',
