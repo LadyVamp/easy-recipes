@@ -10,6 +10,10 @@
       </p>
     </div>
     <div class="q-pa-md">
+      <h2>Кириллица в транслит для id</h2>
+      <CyrillicTransliterator />
+    </div>
+    <div class="q-pa-md">
       <h2>Как добавить новый рецепт</h2>
       <ul>
         <li>1. Написать рецепт в public/recipes.json</li>
@@ -53,4 +57,6 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+import CyrillicTransliterator from '@/components/Shared/CyrillicTransliterator.vue';
+</script>
