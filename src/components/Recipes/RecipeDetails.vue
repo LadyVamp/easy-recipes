@@ -32,7 +32,7 @@
             </p>
           </div>
           <div v-if="$q.platform.is.mobile" class="col col-xs-2 q-mt-xs">
-            <q-btn outline round color="warning" icon="mdi-sleep-off" @click="wakeLock" />
+            <WakelockButton />
           </div>
         </div>
         <p v-if="currentRecipe.note" class="text-note-color q-pl-xs">
@@ -110,13 +110,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { Notify } from 'quasar';
 import { getAllRecipes } from '@/api/recipes';
 import { RecipesResponse, Recipe } from '@/api/interfaces';
 import IconNature from '@/components/Icons/IconNature.vue';
 import IconFeature from '@/components/Icons/IconFeature.vue';
 import IconSeason from '@/components/Icons/IconSeason.vue';
 import DropdownListShops from '@/components/DropdownListShops.vue';
+import WakelockButton from '@/components/Shared/WakelockButton.vue';
 import { useSelectedShops } from '@/composables/useSelectedShops';
 
 const route = useRoute();
@@ -162,21 +162,6 @@ function linkToProductShop1(ingredient: string) {
   }
 }
 
-function wakeLock() {
-  const requestWakeLock = async () => {
-    try {
-      const wakeLock = await navigator.wakeLock.request('screen');
-      console.log(wakeLock);
-      Notify.create({
-        message: 'WakeLock активирован',
-        type: 'warning',
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  requestWakeLock();
-}
 function copyToClipBoard(textToCopy: string) {
   navigator.clipboard.writeText(textToCopy);
 }
