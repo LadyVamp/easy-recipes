@@ -8,6 +8,13 @@ import { useSelectedShops } from '@/composables/useSelectedShops';
 const { selectedShop1 } = useSelectedShops();
 
 const shops1AndShops2 = ref([
+  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
+  {
+    value: 'vkusvill',
+    label: 'Вкусвилл',
+    link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
+  },
+  { value: '5ka', label: 'Пятерочка', link: 'https://5ka.ru/search/?value=ingredient' },
   {
     value: 'edadeal',
     label: 'Едадил',
@@ -28,17 +35,12 @@ const shops1AndShops2 = ref([
     label: 'Metro',
     link: 'https://online.metro-cc.ru/search?q=ingredient',
   },
-  {
-    value: 'vkusvill',
-    label: 'Вкусвилл',
-    link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
-  },
+
   {
     value: 'ozonfresh',
     label: 'Ozon Fresh',
     link: 'https://www.ozon.ru/category/supermarket-25000/?miniapp=supermarket&text=ingredient',
   },
-  { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
   { value: '5ka', label: 'Пятерочка', link: 'https://5ka.ru/search/?value=ingredient' },
   { value: 'lenta', label: 'Лента', link: 'https://moscow.lenta.com/search/ingredient' },
   { value: 'multisearch', label: 'Купер Все магазины', link: 'https://kuper.ru/multisearch?q=ingredient' },
