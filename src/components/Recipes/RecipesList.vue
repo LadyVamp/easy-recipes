@@ -146,6 +146,7 @@ export default defineComponent({
         { name: 'grill', title: 'Гриль', icon: 'mdi-grill' },
         { name: 'toaster', title: 'Мультипекарь', icon: 'mdi-toaster' },
         { name: 'afghan_cauldron', title: 'Афганский казан', icon: 'mdi-kettlebell' },
+        { name: 'multicooker', title: 'Мультиварка', icon: 'mdi-food-takeout-box-outline' },
       ] as FeatureObj[],
       seasonButtons: [
         { name: 'all', title: 'Все сезоны', icon: 'mdi-sun-snowflake', color: 'light-green-5' },

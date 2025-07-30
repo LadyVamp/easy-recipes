@@ -47,6 +47,11 @@ const iconFeatures = [
     label: 'Афганский казан',
     icon: 'mdi-kettlebell',
   },
+  {
+    key: 'multicooker',
+    label: 'Мультиварка',
+    icon: 'mdi-food-takeout-box-outline',
+  },
 ];
 
 function getIcon(feature: Feature) {
