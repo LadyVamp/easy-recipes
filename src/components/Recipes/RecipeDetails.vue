@@ -43,6 +43,7 @@
         <div class="row">
           <div class="col col-md-6 col-xs-6 q-mt-sm">
             <q-toggle v-model="isShowLinksShop1" label="Ссылки на магазины" />
+            <q-toggle v-model="isShowCopyIngredientButton" label="Кнопка копирования названия ингредиента" />
           </div>
           <div class="col col-md-6 col-xs-6">
             <DropdownListShops v-model="selectedShop1" />
@@ -68,6 +69,16 @@
           </span>
           <span v-if="!name.includes('||')">
             <a :href="linkToProductShop1(name)" target="_blank">{{ name }}</a>
+            <q-btn
+              v-if="isShowCopyIngredientButton"
+              size="xs"
+              flat
+              round
+              color="secondary"
+              icon="mdi-content-copy"
+              title="Скопировать"
+              @click="copyToClipBoard(name)"
+            />
             –
             {{ value }}
           </span>
@@ -135,6 +146,7 @@ let currentRecipe: Recipe = {
   season: 'summer',
 };
 const isLoading = ref(false);
+const isShowCopyIngredientButton = ref(false);
 
 const { isShowLinksShop1 } = useSelectedShops();
 const { selectedShop1 } = useSelectedShops();
