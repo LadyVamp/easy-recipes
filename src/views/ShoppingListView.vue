@@ -97,14 +97,7 @@ const modalDeleteList = ref(false);
 const productLS = ref('');
 const shoppingListLS = ref<string[]>(JSON.parse(localStorage.getItem('shoppingList') || '[]') || []);
 
-const regularShoppingList = ref([
-  'Яблоки',
-  'Груши',
-  'Йогурт греческий',
-  'Йогурт термостатный',
-  'Яйцо куриное СО',
-  'Хлеб зерновой',
-]);
+const regularShoppingList = ref(['Яйцо куриное СО', 'Хлеб зерновой', 'Йогурт греческий']);
 
 function linkToProductShop1(ingredient: string) {
   if (selectedShop1.value.value === 'multisearch') {
