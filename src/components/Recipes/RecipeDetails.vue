@@ -22,6 +22,13 @@
             <IconNature :nature="currentRecipe.nature" />
             <IconFeature :feature="currentRecipe.feature" />
             <IconSeason :season="currentRecipe.season" />
+            <q-icon
+              v-if="currentRecipe.isKidsMenu"
+              name="mdi-teddy-bear"
+              color="orange-10"
+              size="24px"
+              title="Детское меню"
+            />
             <div v-if="currentRecipe.time">
               <q-icon name="mdi-timer-outline" color="primary" size="32px" title="Время приготовления" />
               {{ currentRecipe.time }} минут

@@ -19,6 +19,7 @@ export interface Recipe {
   note?: string;
   time?: number;
   extra?: Extra;
+  isKidsMenu?: boolean;
 }
 
 export type Nature = 'meat' | 'bird' | 'vegetable' | 'fish' | 'dairy' | 'dessert' | 'all';

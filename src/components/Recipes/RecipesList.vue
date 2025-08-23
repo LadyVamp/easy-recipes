@@ -54,7 +54,7 @@
     </div>
   </div>
   <div class="row justify-between q-pa-xs">
-    <div class="col-4">
+    <div>
       <q-select
         v-model="selectedServings"
         :options="servings"
@@ -64,6 +64,15 @@
       />
     </div>
     <div class="col-1 q-mt-lg w-50">{{ filteredList.length }}</div>
+  </div>
+  <div>
+    <q-toggle
+      v-model="isShowKidsMenu"
+      checked-icon="mdi-teddy-bear"
+      color="orange-10"
+      label="Детское меню"
+      @click="filterByIsKidsMenu"
+    />
   </div>
   <div v-if="filteredList.length < 4" class="invisible">
     Текст, чтобы блоки не скукожились. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore quae molestias
@@ -86,6 +95,7 @@
             <IconNature :nature="item.nature" />
             <IconFeature :feature="item.feature" />
             <IconSeason :season="item.season" />
+            <q-icon v-if="item.isKidsMenu" name="mdi-teddy-bear" color="orange-10" size="24px" title="Детское меню" />
           </router-link>
         </q-card-section>
       </q-card>
@@ -111,6 +121,7 @@ export default defineComponent({
   },
   data() {
     return {
+      isShowKidsMenu: false,
       recipes: [] as Recipe[],
       filteredList: [] as Recipe[],
       searchValue: '',
@@ -214,6 +225,11 @@ export default defineComponent({
       value.value === 'all'
         ? (this.filteredList = this.recipes)
         : (this.filteredList = this.recipes.filter((item) => item.servings === value.value));
+    },
+    filterByIsKidsMenu() {
+      this.isShowKidsMenu === true
+        ? (this.filteredList = this.recipes.filter((item) => item.isKidsMenu === true))
+        : (this.filteredList = this.recipes);
     },
   },
 });
