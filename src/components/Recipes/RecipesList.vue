@@ -182,7 +182,7 @@ export default defineComponent({
         .catch((err) => console.error(err));
     },
     onSearchInput() {
-      const searchInput = this.searchValue.toLowerCase();
+      const searchInput = this.searchValue.toLowerCase().trim();
       if (searchInput !== '' && this.selectedSearchKey.value === 'title') {
         this.filteredList = this.searchByTitle(searchInput);
       }
