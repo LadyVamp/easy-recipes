@@ -15,7 +15,6 @@ const shops1AndShops2 = ref([
     label: 'Вкусвилл',
     link: 'https://vkusvill.ru/search/?type=products&q=ingredient',
   },
-  { value: '5ka', label: 'Пятерочка', link: 'https://5ka.ru/search/?value=ingredient' },
   {
     value: 'edadeal',
     label: 'Едадил',
@@ -36,7 +35,6 @@ const shops1AndShops2 = ref([
     label: 'Metro',
     link: 'https://online.metro-cc.ru/search?q=ingredient',
   },
-
   {
     value: 'ozonfresh',
     label: 'Ozon Fresh',
