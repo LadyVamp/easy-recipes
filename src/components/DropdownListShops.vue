@@ -46,38 +46,38 @@ const shops1AndShops2 = ref([
   {
     value: 'auchan',
     label: 'Купер Ашан',
-    link: 'https://kuper.ru/auchan/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/auchan/search?keywords=ingredient',
   },
   {
     value: 'lentagp',
     label: 'Купер Лента',
-    link: 'https://kuper.ru/lentagp/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/lentagp/search?keywords=ingredient',
   },
   {
     value: 'globusgiper',
     label: 'Купер Глобус',
-    link: 'https://kuper.ru/globusgiper/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/globusgiper/search?keywords=ingredient',
   },
-  { value: 'okey', label: 'Купер Окей', link: 'https://kuper.ru/okey/search?keywords=ingredient&sort=unit_price_asc' },
+  { value: 'okey', label: 'Купер Окей', link: 'https://kuper.ru/okey/search?keywords=ingredient' },
   {
     value: 'perekrestok',
     label: 'Купер Перекресток',
-    link: 'https://kuper.ru/perekrestok/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/perekrestok/search?keywords=ingredient',
   },
   {
     value: 'perekrestokvprok',
     label: 'Купер Перекресток Впрок',
-    link: 'https://kuper.ru/perekrestokvprok/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/perekrestokvprok/search?keywords=ingredient',
   },
   {
     value: 'metro',
     label: 'Купер Metro',
-    link: 'https://kuper.ru/metro/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/metro/search?keywords=ingredient',
   },
   {
     value: 'vkusvill_darkstore',
     label: 'Купер Вкусвилл',
-    link: 'https://kuper.ru/vkusvill_darkstore/search?keywords=ingredient&sort=unit_price_asc',
+    link: 'https://kuper.ru/vkusvill_darkstore/search?keywords=ingredient',
   },
 ]);
 </script>
