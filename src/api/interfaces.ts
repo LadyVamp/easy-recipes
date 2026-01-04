@@ -30,7 +30,7 @@ export interface NatureObj {
   color: string;
 }
 
-export type Feature = 'all' | 'fast' | 'oven' | 'pot' | 'stewingdish' | 'grill' | 'afghan_cauldron' | 'multicooker';
+export type Feature = 'all' | 'fast' | 'oven' | 'pot' | 'stewingdish' | 'grill' | 'multicooker';
 export interface FeatureObj {
   name: Feature;
   title: string;

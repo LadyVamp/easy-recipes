@@ -155,7 +155,6 @@ export default defineComponent({
         { name: 'pot', title: 'Кастрюля', icon: 'mdi-pot-steam-outline' },
         { name: 'stewingdish', title: 'Утятница', icon: 'mdi-dome-light' },
         { name: 'grill', title: 'Гриль', icon: 'mdi-grill' },
-        { name: 'afghan_cauldron', title: 'Афганский казан', icon: 'mdi-kettlebell' },
         { name: 'multicooker', title: 'Мультиварка', icon: 'mdi-food-takeout-box-outline' },
       ] as FeatureObj[],
       seasonButtons: [

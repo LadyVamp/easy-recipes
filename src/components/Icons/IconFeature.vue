@@ -38,11 +38,6 @@ const iconFeatures = [
     icon: 'mdi-grill',
   },
   {
-    key: 'afghan_cauldron',
-    label: 'Афганский казан',
-    icon: 'mdi-kettlebell',
-  },
-  {
     key: 'multicooker',
     label: 'Мультиварка',
     icon: 'mdi-food-takeout-box-outline',
