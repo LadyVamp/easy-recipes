@@ -2819,7 +2819,7 @@
         "5": ""
       },
       "nature": "vegetable | bird | meat | fish | dairy | dessert",
-      "feature": "fast | oven | stewingdish | pot | grill | multicooker",
+      "feature": "fast | oven | stewingdish | pot | grill | multicooker | sous_vide",
       "season": "all | summer",
       "isKidsMenu": "true | false"
     }
