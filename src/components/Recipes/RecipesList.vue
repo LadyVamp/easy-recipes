@@ -156,6 +156,7 @@ export default defineComponent({
         { name: 'stewingdish', title: 'Утятница', icon: 'mdi-dome-light' },
         { name: 'grill', title: 'Гриль', icon: 'mdi-grill' },
         { name: 'multicooker', title: 'Мультиварка', icon: 'mdi-food-takeout-box-outline' },
+        { name: 'sous_vide', title: 'Су-вид', icon: 'mdi-alpha-v-circle-outline' },
       ] as FeatureObj[],
       seasonButtons: [
         { name: 'all', title: 'Все сезоны', icon: 'mdi-sun-snowflake', color: 'light-green-5' },

@@ -42,6 +42,11 @@ const iconFeatures = [
     label: 'Мультиварка',
     icon: 'mdi-food-takeout-box-outline',
   },
+  {
+    key: 'sous_vide',
+    label: 'Су-вид',
+    icon: 'mdi-alpha-v-circle-outline',
+  },
 ];
 
 function getIcon(feature: Feature) {
