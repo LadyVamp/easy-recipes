@@ -2898,31 +2898,6 @@
       "season": "all"
     },
     {
-      "id": "template_id",
-      "title": "template_title",
-      "servings": 4,
-      "ingredients": {
-        "item1": "",
-        "item2": "",
-        "item3": "",
-        "item4": "",
-        "item5": ""
-      },
-      "note": "",
-      "time": 0,
-      "steps": {
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": ""
-      },
-      "nature": "vegetable | bird | meat | fish | dairy | dessert",
-      "feature": "fast | oven | stewingdish | pot | grill | multicooker | sous_vide",
-      "season": "all | summer",
-      "isKidsMenu": "true | false"
-    },
-    {
       "id": "Risovii-sup-s-frikadelkami-v-multivarke",
       "title": "Рисовый суп с фрикадельками в мультиварке",
       "servings": 4,
@@ -2947,6 +2922,57 @@
       "feature": "multicooker",
       "season": "all",
       "isKidsMenu": true
+    },
+    {
+      "id": "Tomlenaya-govyadina-s-ovoshchami",
+      "title": "Томленая говядина с овощами",
+      "servings": 4,
+      "ingredients": {
+        "Лопатка говяжья без кости": "700 г",
+        "Картофель": "6 шт",
+        "Морковь": "2 шт",
+        "Сельдерей": "3 черешка",
+        "Лук репчатый": "1 шт",
+        "Лавровый лист": "По вкусу",
+        "Вода": "100 мл"
+      },
+      "note": "TODO: добавить фото",
+      "time": 0,
+      "steps": {
+        "1": "Мясо и овощи нарезать и поместить в чашу мультиварки",
+        "2": "Налить воду в чашу мультиварки",
+        "3": "Установить программу Томление, время приготовления 1 час, давление Минимальное. Готовить до окончания программы",
+        "4": "После окончания работающей под давлением программы дать мультиварке-скороварке остыть не менее 10 минут, затем спустить пар"
+      },
+      "nature": "meat",
+      "feature": "multicooker",
+      "season": "all",
+      "isKidsMenu": "true"
+    },
+    {
+      "id": "template_id",
+      "title": "template_title",
+      "servings": 4,
+      "ingredients": {
+        "item1": "",
+        "item2": "",
+        "item3": "",
+        "item4": "",
+        "item5": ""
+      },
+      "note": "",
+      "time": 0,
+      "steps": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": ""
+      },
+      "nature": "vegetable | bird | meat | fish | dairy | dessert",
+      "feature": "fast | oven | stewingdish | pot | grill | multicooker | sous_vide",
+      "season": "all | summer",
+      "isKidsMenu": "true | false"
     }
   ]
 }
