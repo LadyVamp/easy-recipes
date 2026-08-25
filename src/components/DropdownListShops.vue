@@ -8,6 +8,7 @@ import { useSelectedShops } from '@/composables/useSelectedShops';
 const { selectedShop1 } = useSelectedShops();
 
 const shops1AndShops2 = ref([
+  { value: 'auchan', label: 'Ашан', link: 'https://www.auchan.ru/search/?query=ingredient' },
   { value: 'globus', label: 'Глобус', link: 'https://online.globus.ru/search?q=ingredient' },
   { value: 'vprok', label: 'Впрок', link: 'https://www.vprok.ru/catalog/search?text=ingredient' },
   {
