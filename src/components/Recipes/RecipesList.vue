@@ -88,7 +88,11 @@
               params: { id: item.id },
             }"
           >
-            <q-img :src="'/easy-recipes/recipe-images/' + item.id + '.jpg'" height="200px" />
+            <q-img
+              :src="'/easy-recipes/recipe-images/' + item.id + '.jpg'"
+              height="200px"
+              @error="handleImageError(item.id)"
+            />
             <div class="text-h6 q-pa-xs">
               {{ item.title }}
             </div>
@@ -229,6 +233,9 @@ export default defineComponent({
       this.isShowKidsMenu === true
         ? (this.filteredList = this.recipes.filter((item) => item.isKidsMenu === true))
         : (this.filteredList = this.recipes);
+    },
+    handleImageError(id: string) {
+      console.error('Изображение не найдено: ' + id);
     },
   },
 });
